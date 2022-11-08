@@ -1,21 +1,27 @@
 // npm init -y
 
-// npm i --save-dev @babel/preset-env @babel/cli @babel/core babel-loader webpack webpack-cli regenerator-runtime core-js@2
+// npm i --save-dev @babel/preset-env @babel/cli @babel/core babel-loader webpack webpack-cli
 
-// gitignore
+// npm i core-js regenerator-runtime
+
+// gitignore -> node_modules
 
 // mesmo que se apague node_modules, npm i baixa todas as dependências em package.json
 
 // criar webpack.config.js
 
-// configurá-lo
+// configurá-lo:
 
-// criar pasta src (source) e inserir o index.js
+// criar pasta src na raiz (source) e inserir o index.js
 
-// criar a pasta public (a que o usuário enxerga) e nela assets (com css, javascript, images)
+// criar a pasta public na raiz (a que o usuário enxerga) e nela os assets (com css, javascript, images)
 
-// modificar script em package.json
+// modificar config script em package.json:
 
 // executar script: npm run loadwebpack
 
-// alterar sempre o index em source
+// durante a construção da aplicação, alterar sempre o index em source.
+
+// incluir no HTML bundle.js em public
+
+// apagar node_modules
