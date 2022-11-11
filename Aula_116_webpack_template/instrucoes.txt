@@ -39,3 +39,7 @@
 // npm install style-loader css-loader
 
 // importar arquivos css em index.js
+
+// Em index incluir
+// import 'core-js/stable'
+// import 'regenerator-runtime/runtime'

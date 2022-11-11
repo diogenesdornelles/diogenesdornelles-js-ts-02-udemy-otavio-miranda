@@ -13,26 +13,30 @@
     <form action="/" method="get" class="form">
       <div>
         <label for="qnt-carac">Quantidade de caracteres</label>
-        <input type="text" name="qnt-carac" id="qnt-carac">
+        <input type="text" name="qnt-carac" id="amt-charac">
       </div>
       <div>
         <label for="add-number">Adicionar números</label>
-        <input type="checkbox" name="add-number" id="add-number" value="add-number">
+        <input type="checkbox" name="add-number" id="addnumber" value="true">
       </div>
       <div>
-        <label for="uppercase">Letras maiúsculas</label>
-        <input type="checkbox" name="uppercase" id="uppercase" value="uppercase">
+        <label for="uppercase">Adicionar letras maiúsculas</label>
+        <input type="checkbox" name="uppercase" id="adduppercase" value="true">
       </div>
       <div>
-        <label for="lowercase">letras minúsculas</label>
-        <input type="checkbox" name="lowercase" id="lowercase" value="lowercase">
+        <label for="lowercase">Adicionar letras minúsculas</label>
+        <input type="checkbox" name="lowercase" id="addlowercase" value="true">
       </div>
       <div>
-        <label for="symbols">Letras símbolos</label>
-        <input type="checkbox" name="symbols" id="symbols" value="symbols">
+        <label for="symbols">Adicionar símbolos</label>
+        <input type="checkbox" name="symbols" id="addsymbol" value="true">
       </div>
-      <button type="submit">Gerar senha</button>
+      <button type="submit" id="btn-generate">Gerar senha</button>
     </form>
+    <h2  class="subtitle">Senha</h2>
+    <div class="result">
+      
+    </div>
   </section>
   <script src="./assets/js/bundle.js"></script>
 </body>
