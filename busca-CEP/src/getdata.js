@@ -5,5 +5,3 @@ export default function getDataAPI(cep){
   .then((data) => data.json())
   .catch((err) => console.log(err))
 }
-
-

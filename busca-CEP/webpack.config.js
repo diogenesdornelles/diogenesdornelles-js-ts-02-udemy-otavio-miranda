@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [{
       exclude: /node_modules/,
-      test: /\.js$/,
+      test: [/\.js$/, /\.jsx$/],
       use: {
         loader: 'babel-loader',
         options: {
@@ -26,4 +26,10 @@ module.exports = {
     ],
   },
   devtool: 'source-map',
+  resolve: {
+    fallback: {
+        "fs": false
+    },
+  },
+  target: 'node'
 }

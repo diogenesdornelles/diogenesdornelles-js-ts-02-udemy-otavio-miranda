@@ -49,4 +49,5 @@ module.exports = {
       "assert": false,
     },
   },
+  target: 'node'
 }

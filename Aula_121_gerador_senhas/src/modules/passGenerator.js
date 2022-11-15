@@ -1,5 +1,5 @@
 const letterLower = 'abcdefghijklmnopqrstuvxwyz';
-const letterUpper = 'ABCDEFGHIJKLMNOPQRSTUVXWYZ'
+const letterUpper = 'ABCDEFGHIJKLMNOPQRSTUVXWYZ';
 const numbers = '0123456789';
 const symbols =  "!@#$%^&*";
 

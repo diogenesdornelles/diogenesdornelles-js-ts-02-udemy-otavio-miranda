@@ -17,4 +17,3 @@ export async function mainApp(cep){
     return console.log(err)
   }
 }
-

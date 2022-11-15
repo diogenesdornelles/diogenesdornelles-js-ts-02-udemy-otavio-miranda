@@ -12,4 +12,3 @@ export function getCEPFromField(){
   removePreviouslyQuery()
   mainApp(input)  
 }
-
