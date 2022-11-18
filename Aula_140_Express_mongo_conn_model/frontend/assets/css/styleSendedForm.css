@@ -1,0 +1,29 @@
+.sended {
+  color: white;
+  background-color: rgb(29, 27, 27);
+}
+
+.sended .title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 27px;
+}
+
+.sended .back {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 27px;
+  color: black;
+  background-color: white;
+  width: 130px;
+  height: 38px;
+  line-height: 38px;
+  border-radius: 8px;
+  text-decoration: none;
+}

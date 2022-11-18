@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelo</title>
+</head>
+<body class="index">
+  <section class="container">
+    <h1 class="title">Informe novo usuário</h1>
+    <form action="/" method="POST" class="form">
+      <label for="nome">Nome :</label><input type="text" name="nome" placeholder="nome" id="nome" pattern="[a-z A-Z]*">
+      <label for="sobrenome">Sobrenome :</label><input type="text" name="sobrenome" placeholder="sobrenome" id="sobrenome" pattern="[a-z A-Z]*">
+      <label for="idade"> Idade :</label><input type="text" name="idade" placeholder="idade" id="idade" pattern="[0-9]*">
+      <label for="usuario"> Nome de usuário :</label><input type="text" name="usuario" placeholder="usuario" id="usuario" pattern="[0-9a-zA-Z]*">
+      <label for="senha"> Senha :</label><input type="password" name="senha" placeholder="senha" id="senha" pattern="[0-9a-zA-Z]*">
+      <button type="submit">Enviar</button>
+    </form>
+  </section>  
+  <script src="./assets/js/bundle.js"></script>
+</body>
+</html>
