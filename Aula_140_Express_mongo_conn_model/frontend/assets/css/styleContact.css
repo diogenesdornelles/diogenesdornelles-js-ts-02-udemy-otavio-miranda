@@ -2,12 +2,12 @@
 css frontend
 */
 
-.index {
+.contact {
   color: white;
   background-color: rgb(29, 27, 27);
 }
 
-.index .container {
+.contact .container {
   width: 30vw;
   display: flex;
   flex-direction: column;
@@ -20,39 +20,39 @@ css frontend
   border-radius: 12px;
 }
 
-.index .title {
+.contact .title {
   text-align: center;
   font-size: 24px;
 }
 
-.index .form {
+.contact .form {
   display: flex;
   flex-direction: column;
   gap: 5px
 }
 
-.index input {
+.contact input {
   height: 2em;
   text-indent: 10px;
 }
 
-.index button {
+.contact button {
   margin-top: 20px;
   height: 2.3em;
   cursor: pointer;
 }
 
-.index ul {
+.contact ul {
   list-style: none;
 }
 
-.index ul li {
+.contact ul li {
   display: flex;
   justify-content: flex-end;
   align-content: center;
 }
 
-.index ul li a {
+.contact ul li a {
   text-decoration: none;
   color: white;
   font-size: 1.5em;
@@ -61,6 +61,6 @@ css frontend
   padding: 10px;
 }
 
-.index ul li a:hover{
+.contact ul li a:hover{
   background-color: rgb(0, 0, 0);;
 }

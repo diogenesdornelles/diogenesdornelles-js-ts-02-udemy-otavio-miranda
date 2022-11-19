@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato</title>
+</head>
+<body class="contact">
+  <ul>
+    <li>
+      <a href="/">Voltar</a>
+    </li>
+  </ul>
+  <section class="container">
+    <h1 class="title">Entre em contato conosco:</h1>
+    <form action="/contato" method="POST" class="form">
+      <label for="nome">Nome :</label><input type="text" name="nome" placeholder="nome" id="nome" pattern="[a-z A-Z]*">
+      <label for="email"> Email :</label><input type="email" name="email" placeholder="E-mail" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      <label for="telefone"> Telefone :</label><input type="text" name="telefone" placeholder="telefone" id="telefone" pattern="[0-9]*">
+      <label for="usuario"> Mensagem :</label><textarea name="mensagem" id="mensagem" cols="30" rows="10" placeholder="Digite aqui sua mensagem"></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>  
+  <script src="./assets/js/bundle.js"></script>
+</body>
+</html>
