@@ -1,28 +1,21 @@
-const HomeModel = require('../models/HomeModel');
-
-exports.saveSession = (req, res) => {
-  console.log(req.session)
-  req.session.user = {
-    nome: req.body.nome,
-    logged: true,
-  }
-}
-
-exports.showDataFromDB = (req, res) => {
-  HomeModel.find()
-  .then((data) => {
-    console.log(data);
-  })
-  .catch(err => console.log(err));
-}
 
 // renderizar HTML
-exports.homePage = (req, res) => {
+exports.homePage = (req, res, next) => {
+  console.log(req.session.nameUser) // call storaged session.nameUser
+  req.flash('Info', 'Olá mundo')
   res.render('index');
+  return;
 }
 
-// obter dados form via post
 exports.homePageFormPost = (req, res, next) => {
-  res.send('Formulário enviado.')
-  next()
+  res.send('Formulário enviado com sucesso.');
+  return;
+}
+
+exports.saveUser = (req, res, next) => {
+  req.session.nameUser = req.body.nome;
+  req.session.passUser = req.body.senha;
+  req.session.loggedIn = true
+  req.session.save()
+  next();
 }

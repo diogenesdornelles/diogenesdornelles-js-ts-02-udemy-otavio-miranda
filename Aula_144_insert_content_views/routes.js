@@ -5,6 +5,6 @@ const homeController = require('./src/controllers/homeController');
 
 route.get('/', homeController.homePage);
 
-route.post('/', homeController.saveUser, homeController.homePageFormPost);
+route.post('/', homeController.homePageFormPost, homeController.homeSaveDataFormDB);
 
 module.exports = route;
