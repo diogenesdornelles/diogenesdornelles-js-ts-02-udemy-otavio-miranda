@@ -1,0 +1,34 @@
+/*
+css frontend
+*/
+
+body {
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  font-family: Roboto, sans-serif;
+}
+
+body .bg-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+}
+
+:root {
+  --font-size-p: 3vh;
+  --font-color-darkest: #001220;
+  --font-color-dark3: #0c1c30;
+  --font-color-purple3: #312c4f;
+  --font-color-purple2: #623965;
+  --font-color-purple1: #c55469;
+  --font-color-orange2: #e9705a;
+  --font-color-orange1: #fa9845;
+  --font-color-yellow: #fbae3c;
+}
+
+
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<%- include('../views/partials/head') %>
+<body class="contact">
+  <%- include('../views/partials/header') %>
+
+  <section class="container">
+    <h1 class="title">Entre em contato conosco:</h1>
+    <form action="/contato" method="POST" class="form">
+      <label for="nome">Nome :</label><input type="text" name="nome" placeholder="nome" id="nome" pattern="[a-z A-Z]*">
+      <label for="email"> Email :</label><input type="email" name="email" placeholder="E-mail" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      <label for="telefone"> Telefone :</label><input type="text" name="telefone" placeholder="telefone" id="telefone" pattern="[0-9]*">
+      <label for="usuario"> Mensagem :</label><textarea name="mensagem" id="mensagem" cols="30" rows="10" placeholder="Digite aqui sua mensagem"></textarea>
+      <button type="submit" id="btnMsg" class="btn">Enviar</button>
+    </form>
+  </section>  
+
+  <%- include('../views/partials/footer') %>
+  <script src="./assets/js/bundle.js"></script>
+</body>
+</html>

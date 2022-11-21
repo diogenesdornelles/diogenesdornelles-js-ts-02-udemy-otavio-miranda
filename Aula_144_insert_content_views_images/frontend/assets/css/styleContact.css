@@ -1,0 +1,66 @@
+/*
+css frontend
+*/
+
+.contact .container {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 0 auto;
+  margin-top: 5%;
+  border: 2px solid var(--font-color-purple2);
+  background-color: var(--font-color-dark3);
+  padding: 2%;
+  border-radius: 12px;
+}
+
+.contact .title {
+  text-align: center;
+  font-size: 24px;
+}
+
+.contact .form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact input {
+  height: 2.3em;
+  text-indent: 10px;
+}
+
+.contact textarea {
+  text-indent: 10px;
+  font-family: Roboto, sans-serif;
+}
+
+.contact .btn {
+  margin-top: 25px;
+  width: 40%;
+  font-family: Roboto, sans-serif;
+  font-weight: 781;
+  font-size: 14px;
+  color: #fff;
+  background-color: #96446e;
+  padding: 10px 42px;
+  border: solid 2px #96446e;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-radius: 42px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  align-self: center;
+  text-align: center;
+  justify-content: center;
+  }
+  
+  .contact .btn:hover{
+  transition : 2245ms;
+  background-color: #fff;
+  color: #e9705a;
+  border: solid 2px #96446e;
+  }

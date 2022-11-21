@@ -1,0 +1,21 @@
+/*
+css frontend
+*/
+
+.form-sended .container {
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 15px;
+  margin: 0 auto;
+  margin-top: 5%;
+  border: 2px solid var(--font-color-purple2);
+  background-color: var(--font-color-dark3);
+  padding: 2%;
+  border-radius: 12px;
+}
+
+.form-sended .container p {
+  font-size: 25px;
+}

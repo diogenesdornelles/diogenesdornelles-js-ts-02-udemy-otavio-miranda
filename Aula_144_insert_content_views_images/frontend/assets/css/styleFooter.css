@@ -1,0 +1,24 @@
+/*
+css frontend
+*/
+
+.footer {
+  position: absolute;
+  top: 96%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0c1c30;
+  opacity: .7;
+  display: flex;
+  justify-content: start;
+  align-content: center;
+}
+
+.footer p {
+  font-size: .8em;
+  display: flex;
+  align-items: center;
+}
+
+
