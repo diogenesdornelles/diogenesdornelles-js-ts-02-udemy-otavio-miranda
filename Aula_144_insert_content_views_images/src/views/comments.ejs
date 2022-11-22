@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<%- include('../views/partials/head') %>
+<body class="comments">
+  <%- include('../views/partials/header') %>
+
+  <main class="container-comments">
+    
+    <section class="comments-section">
+      <h2>
+        Comentários
+      </h2>
+      <% if (comments.length  > 0) { %> 
+        <% comments.forEach((comment) => { %> 
+          <div class="comment">
+            <div class="comment-header">
+              <p class="name">
+                <%= comment.name %> 
+              </p>
+              <p class="timestamp">
+                <% const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } %> 
+                <%= comment.createdAt.toLocaleDateString('pt-BR', options) %> 
+              </p>
+            </div>
+          <div>
+            <p class="text">
+              <%= comment.comment %> 
+            </p>
+          </div>
+          </div>
+        <% }) %> 
+      <% } else { %> 
+        <P>Nenhum comentário recente.</P> 
+        <% } %>
+    </section>
+    <form action="/comentarios" method="POST" class="form">
+      <h2 class="title">Escreva um comentário</h2>
+      <input type="text" name="nome" placeholder="nome" id="nome" pattern="[a-z A-Z]*">
+      <textarea name="comentario" id="comentario" cols="30" rows="20" placeholder="Digite aqui sua mensagem"></textarea>
+      <button type="submit" id="btnCmt" class="btn">Enviar</button>
+    </form>
+  </main>
+  <%- include('../views/partials/footer') %>
+  <script src="./assets/js/bundle.js"></script>
+</body>
+</html>
+

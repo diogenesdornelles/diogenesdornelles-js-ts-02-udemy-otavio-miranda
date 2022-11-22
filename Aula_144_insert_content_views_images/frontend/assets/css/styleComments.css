@@ -1,0 +1,112 @@
+/*
+css frontend
+*/
+
+.comments .container-comments {
+  margin:  0 auto;
+  margin-top: 10vh;
+  width: 60vw;
+  height: 85%;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-template-rows: 1fr;
+  gap: 10px;
+  padding: 1%;
+  border-radius: 12px;
+  opacity: .85;
+}
+
+.comments .container-comments h2 {
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.comments .comments-section {
+  overflow: auto;
+  grid-column: 1;
+  padding: 15px;
+  border-radius: 12px;
+  background-color: var(--font-color-dark3);
+  height: 70vh;
+}
+
+.comments .comment {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 8px;
+  border-bottom: 1px solid #e96f5a89;
+}
+
+.comments .comment .comment-header {
+  display: flex;
+}
+
+.comments .comment .comment-header .timestamp {
+  margin-left: 15px;
+}
+
+.comments .comment .text {
+  margin-left: 30px;
+  text-indent: 25px;
+  text-align: justify;
+  margin-bottom: 10px;
+}
+
+.comments .form {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.comments input {
+  height: 2.3em;
+  text-indent: 10px;
+  border-radius: 5px;
+  background-color: var(--font-color-dark3);
+  border: none;
+  color: white;
+}
+
+.comments textarea {
+  text-indent: 10px;
+  font-family: Roboto, sans-serif;
+  border-radius: 5px;
+  background-color: var(--font-color-dark3);
+  border: none;
+  color: white;
+}
+
+.comments .btn {
+  margin-top: 25px;
+  width: 40%;
+  font-family: Roboto, sans-serif;
+  font-weight: 781;
+  font-size: 14px;
+  color: #fff;
+  background-color: #96446e;
+  padding: 10px 42px;
+  border: solid 2px #96446e;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-radius: 42px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  align-self: center;
+  text-align: center;
+  justify-content: center;
+  }
+  
+  .comments .btn:hover{
+  transition : 2245ms;
+  background-color: #fff;
+  color: #e9705a;
+  border: solid 2px #96446e;
+  }

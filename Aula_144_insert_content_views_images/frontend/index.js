@@ -10,6 +10,7 @@ import './assets/css/styleHeader.css';
 import './assets/css/styleBody.css';
 import './assets/css/styleFooter.css';
 import './assets/css/styleFormSended.css';
+import './assets/css/styleComments.css';
 import './assets/css/reset.css';
 import imgUrl from './assets/images/background.png';
 // frontend
