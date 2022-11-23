@@ -15,7 +15,7 @@ class ValidateComment {
     this.comment = comment;
     this.valid = this.name && this.comment;
 
-    this.saveCommentDB = () => {
+    this.saveCommentDB = async () => {
       if (this.valid) {
         ClientComment.create({
           name: this.name,
@@ -23,6 +23,7 @@ class ValidateComment {
         })
         .then((data) => {
           console.log(data);
+          return true;
         })
         .catch(err => console.log(err));
       }
@@ -34,3 +35,4 @@ module.exports = {
   ValidateComment,
   ClientComment
 }
+

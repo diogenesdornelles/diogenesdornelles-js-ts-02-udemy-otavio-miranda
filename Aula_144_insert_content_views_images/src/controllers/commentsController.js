@@ -5,7 +5,7 @@ const { ValidateComment, ClientComment } = require('../models/CommentsModel');
 exports.commentsPage = (req, res) => {
   ClientComment.find()
     .then((comments) => {
-      const result = comments;
+      const result = comments.reverse();
       res.render('comments', {
         title: 'Comentários',    
         comments: result,
@@ -20,8 +20,11 @@ exports.commentsForm = (req, res, next) => {
     req.body.nome,
     req.body.comentario,
   )
-  msg.saveCommentDB();
-  next();
+  msg.saveCommentDB()
+    .then(() => {
+      next();
+    })
+    .catch(err => console.log(err));
 }
 
 

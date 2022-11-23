@@ -31,6 +31,20 @@ css frontend
   height: 70vh;
 }
 
+.comments .comments-section::-webkit-scrollbar {
+  width: 12px;               
+}
+
+.comments .comments-section::-webkit-scrollbar-track {
+  background: var(--font-color-yellow);        
+}
+
+.comments .comments-section::-webkit-scrollbar-thumb {
+  background-color: var(--font-color-purple3);    
+  border-radius: 20px;      
+  border: 3px solid var(--font-color-orange2); 
+}
+
 .comments .comment {
   padding: 5px;
   display: flex;
@@ -42,13 +56,22 @@ css frontend
 
 .comments .comment .comment-header {
   display: flex;
+  align-items: flex-end;
+}
+
+.comments .comment .comment-header .name {
+  font-size: 1.4em;
+  color: var(--font-color-orange2);
 }
 
 .comments .comment .comment-header .timestamp {
   margin-left: 15px;
+  color: var(--font-color-yellow);
+  font-size: 0.8em;
 }
 
 .comments .comment .text {
+  margin-top: 12px;
   margin-left: 30px;
   text-indent: 25px;
   text-align: justify;

@@ -11,6 +11,7 @@ import './assets/css/styleBody.css';
 import './assets/css/styleFooter.css';
 import './assets/css/styleFormSended.css';
 import './assets/css/styleComments.css';
+import './assets/css/styleRegister.css';
 import './assets/css/reset.css';
 import imgUrl from './assets/images/background.png';
 // frontend
@@ -27,3 +28,13 @@ const app = () => {
 const el = app()
 
 document.body.appendChild(el)
+
+// const inputs = document.querySelectorAll('.register input');
+
+// export function clearInputs() {
+//   inputs.forEach(element => element.value = '');
+// }
+
+// export function callAlert(msg) {
+//   alert(msg);
+// }

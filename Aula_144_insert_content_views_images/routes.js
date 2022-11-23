@@ -8,6 +8,7 @@ const productsController = require('./src/controllers/productsController');
 const networkController = require('./src/controllers/networkController');
 const loginController = require('./src/controllers/loginController');
 const commentsController = require('./src/controllers/commentsController');
+const registerController = require('./src/controllers/registerController');
 
 
 // HOMEPAGE GET
@@ -43,11 +44,21 @@ route.get('/login', loginController.loginPage);
 //route.post('/login', loginController.loginForm);
 
 
-// LOGIN GET
+// COMMENTS GET
 
 route.get('/comentarios', commentsController.commentsPage);
 
+// COMMENTS POST
+
 route.post('/comentarios', commentsController.commentsForm, commentsController.commentsPage);
+
+// REGISTER GET
+
+route.get('/registrar', registerController.registerPage);
+
+// REGISTER POST
+
+route.post('/registrar', registerController.registerForm, registerController.formSended);
 
 
 module.exports = route;
