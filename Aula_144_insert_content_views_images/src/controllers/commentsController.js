@@ -1,6 +1,5 @@
 const { ValidateComment, ClientComment } = require('../models/CommentsModel');
 
-
 // renderizar HTML
 exports.commentsPage = (req, res) => {
   ClientComment.find()

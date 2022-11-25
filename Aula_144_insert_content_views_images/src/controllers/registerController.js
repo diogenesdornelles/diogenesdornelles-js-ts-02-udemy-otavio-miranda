@@ -1,4 +1,4 @@
-const ValidateNewUser = require('../models/RegisterModel');
+const { ValidateNewUser } = require('../models/RegisterModel');
 
 // renderizar HTML
 exports.registerPage = (req, res) => {
@@ -17,20 +17,22 @@ exports.registerForm = (req, res, next) => {
     req.body.senha,
     req.body.repetirSenha,
   )
-  const result = user.saveUserDB();
-    if (result) {
-      next();
-    }
-  }
 
-exports.formSended = (req, res, next) => {
-  res.render('formSended', {
-    result: 'Usuário cadastrado com sucesso!', 
-    title: 'Sucesso',
-  }
-  );
-  return;
+  user.saveUserDB()
+    .then((result) => {
+      if (result.valid) {
+        res.render('formSended', {
+          result: 'Usuário cadastrado com sucesso!', 
+          title: 'Sucesso',
+          }
+        )
+      } else {
+        res.status(204).send();
+      }
+    })
+    .catch(err => console.log(err));
 }
+
 
 
     

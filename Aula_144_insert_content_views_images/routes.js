@@ -10,7 +10,6 @@ const loginController = require('./src/controllers/loginController');
 const commentsController = require('./src/controllers/commentsController');
 const registerController = require('./src/controllers/registerController');
 
-
 // HOMEPAGE GET
 
 route.get('/', homeController.homePage);
@@ -58,7 +57,7 @@ route.get('/registrar', registerController.registerPage);
 
 // REGISTER POST
 
-route.post('/registrar', registerController.registerForm, registerController.formSended);
+route.post('/registrar', registerController.registerForm);
 
 
 module.exports = route;

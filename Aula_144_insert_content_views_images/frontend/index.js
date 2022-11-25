@@ -14,8 +14,11 @@ import './assets/css/styleComments.css';
 import './assets/css/styleRegister.css';
 import './assets/css/reset.css';
 import imgUrl from './assets/images/background.png';
+
 // frontend
 
+
+// set images
 const app = () => {
   //const container = document.createElement('div');
   const codeImage = document.createElement('img');
@@ -24,17 +27,19 @@ const app = () => {
   codeImage.src = imgUrl;
   return codeImage;
 }
-
 const el = app()
+const body = document.querySelector('BODY');
 
-document.body.appendChild(el)
+body.appendChild(el)
 
-// const inputs = document.querySelectorAll('.register input');
 
-// export function clearInputs() {
-//   inputs.forEach(element => element.value = '');
-// }
 
-// export function callAlert(msg) {
-//   alert(msg);
-// }
+
+
+
+
+
+
+
+
+// 
