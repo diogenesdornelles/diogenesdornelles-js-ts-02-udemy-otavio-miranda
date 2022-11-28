@@ -2,9 +2,24 @@
 <html lang="pt-BR">
 <%- include('../views/partials/head') %>
 <body class="login">
-  <%- include('../views/partials/header') %>
-
+  <%- include('../views/partials/header'), {user: user} %>
+  <section class="container">
+    <h1>Login</h1>
+    <svg width="180" height="3" xmlns="http://www.w3.org/2000/svg">
+      <rect width="180" height="3" x="0" y="0" />
+    </svg>
+    <form action="/login" method="POST" class="form" id="form">
+      <div class="div-form for-user">
+        <input type="text" name="usuario" id="usuario" placeholder="Usuário" >
+      </div>
+      <div class="div-form for-senha">
+        <input type="password" name="senha" id="senha" placeholder="Senha">
+      </div>
+      <button type="submit" id="btn-submit" class="btn">Logar</button>
+    </form>
+  </section>
   <%- include('../views/partials/footer') %>
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <script src="./assets/js/bundle.js"></script>
 </body>
 </html>

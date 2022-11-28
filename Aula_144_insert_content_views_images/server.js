@@ -27,7 +27,7 @@ app.use(routes);
 app.use(express.static(staticsFullPath));
 
 app.on('ready', () => {
-  app.listen(3000, () => {
+  var server = app.listen(3000, () => {
     console.log('Access http://localhost:3000');
     console.log('Listening...');
   })

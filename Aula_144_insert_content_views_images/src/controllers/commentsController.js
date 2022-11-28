@@ -4,10 +4,15 @@ const { ValidateComment, ClientComment } = require('../models/CommentsModel');
 exports.commentsPage = (req, res) => {
   ClientComment.find()
     .then((comments) => {
+      let user;
+      if (res.locals.loggedUser !== undefined) {
+      user = res.locals.loggedUser.userName;
+      } else {user = ''};
       const result = comments.reverse();
       res.render('comments', {
         title: 'Comentários',    
         comments: result,
+        user: user,
       });
     })
     .catch( err => console.log(err))

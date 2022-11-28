@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <%- include('../views/partials/head') %>
 <body class="contact">
-  <%- include('../views/partials/header') %>
+  <%- include('../views/partials/header'), {user: user} %>
 
   <section class="container">
     <h1 class="title">Entre em contato conosco:</h1>
@@ -16,6 +16,7 @@
   </section>  
 
   <%- include('../views/partials/footer') %>
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <script src="./assets/js/bundle.js"></script>
 </body>
 </html>

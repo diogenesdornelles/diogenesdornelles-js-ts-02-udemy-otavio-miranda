@@ -2,9 +2,10 @@
 <html lang="pt-BR">
 <%- include('../views/partials/head') %>
 <body class="network">
-  <%- include('../views/partials/header') %>
+  <%- include('../views/partials/header'), {user: user} %>
 
   <%- include('../views/partials/footer') %>
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <script src="./assets/js/bundle.js"></script>
 </body>
 </html>

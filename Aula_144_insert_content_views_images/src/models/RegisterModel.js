@@ -4,17 +4,17 @@ const fs = require('fs');
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   lastname: { type: String, required: true },
-  cpf: { type: String, required: true },
-  userName: { type: String, required: true },
+  cpf: { type: String, required: true, unique: true },
+  userName: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 },
   {timestamp: true}
 );
 
-const NewUser = mongoose.model('user', UserSchema);
+const User = mongoose.model('user', UserSchema);
 
 function saveAdvice(data) {
-  fs.writeFile('advice.json', JSON.stringify(data), err => {
+  fs.writeFile('./src/models/db/advice.json', JSON.stringify(data), err => {
     if (err) {
       console.error(err);
     } else console.log('JSON data is saved.');
@@ -112,6 +112,8 @@ class ValidateNewUser {
     }
 
     this.validarCpf = () => {
+      
+
       const cpfResultado = new ValidadorCPF(this.cpf);
       if (!cpfResultado.validarCPF()){
         this.attrName = 'cpf';
@@ -201,9 +203,9 @@ class ValidateNewUser {
     }
 
     this.saveUserDB = async () => {
-      this.validarForm()
+      this.validarForm();
       if (this.valid) {
-        NewUser.create({
+        User.create({
           name: this.name,
           lastname: this.lastname,
           cpf: this.cpf,
@@ -212,18 +214,40 @@ class ValidateNewUser {
         })
         .then((data) => {
           console.log(data);
+          return true;
         })
-        .catch(err => console.log(err));
-      } 
-      return {
-        valid: this.valid,
+        .catch(err => {
+          if (err.code === 11000) {
+            if ('cpf' in err.keyPattern){
+              this.attrName = 'cpf';
+              this.advice = 'CPF já consta no cadastro.';
+              saveAdvice({
+                attrName: this.attrName,
+                advice: this.advice,
+              })
+              return false;
+            }
+            if ('userName' in err.keyPattern){
+              this.attrName = 'usuario';
+              this.advice = 'Usuário já consta no cadastro.';
+              saveAdvice({
+                attrName: this.attrName,
+                advice: this.advice,
+              })
+              return false;
+            }
+          }
+        });
+      } else {
+        return false;
       }
     }
   }
 }
 
 module.exports = {
-  ValidateNewUser
+  ValidateNewUser,
+  User
 }
   
 

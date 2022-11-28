@@ -81,14 +81,11 @@ css frontend
   height: 3vh;
   text-indent: 5px;
   color: #0a3363;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
   border-radius: 7px;
 }
 
-.register .container .form div label {
-  font-size: 1.8vh;
-  margin-top: 10px;
-}
 .register .container .form input:hover {
   border: 1px solid #4d85c5;
 }
@@ -129,7 +126,9 @@ css frontend
   }
 
   .register .p-advice {
-    font-size: 12px;
+    margin-top: 10px;
+    font-size: 1em;
+    font-weight: 800;
     color: rgba(255, 0, 0, 0.651);
   } 
   

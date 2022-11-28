@@ -1,8 +1,13 @@
-// EXAMPLE:
+const fs = require('fs');
+
 exports.middlewareGlobal = (req, res, next) => {
-  res.locals.oneVariableLocal = 'This is a value of local variable in middleware'; // variável acessível em todas rotas
-  if (req.body.nome) {
-    console.log(`usuário logado ${req.body.nome}`)
+  if (fs.existsSync(`./src/models/db/userLogged.json`)) {
+    fs.readFile(`./src/models/db/userLogged.json`, (err, data) => {
+      if (err) throw err;
+      res.locals.loggedUser = JSON.parse(data);
+      next();
+    }); 
+  } else {
+    next();
   }
-  next()
 }

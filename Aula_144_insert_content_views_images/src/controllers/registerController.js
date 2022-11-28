@@ -2,8 +2,13 @@ const { ValidateNewUser } = require('../models/RegisterModel');
 
 // renderizar HTML
 exports.registerPage = (req, res) => {
+  let user;
+  if (res.locals.loggedUser !== undefined) {
+    user = res.locals.loggedUser.userName;
+  } else {user = ''};
   res.render('register', {
-    title: 'Registrar',    
+    title: 'Registrar',  
+    user: user,
   });
 }
 
@@ -20,12 +25,17 @@ exports.registerForm = (req, res, next) => {
 
   user.saveUserDB()
     .then((result) => {
-      if (result.valid) {
-        res.render('formSended', {
-          result: 'Usuário cadastrado com sucesso!', 
-          title: 'Sucesso',
-          }
-        )
+      if (result) {
+      let user;
+      if (res.locals.loggedUser !== undefined) {
+        user = res.locals.loggedUser.userName;
+      } else {user = ''};
+      res.render('formSended', {
+        result: 'Usuário cadastrado com sucesso!', 
+        title: 'Sucesso',
+        user: user,
+        }
+      )
       } else {
         res.status(204).send();
       }

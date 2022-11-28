@@ -2,8 +2,13 @@ const ValidateMessage = require('../models/ContactModel');
 
 // renderizar HTML
 exports.contactPage = (req, res) => {
+  let user;
+  if (res.locals.loggedUser !== undefined) {
+    user = res.locals.loggedUser.userName;
+  } else {user = ''};
   res.render('contact', {
-    title: 'Contato',    
+    title: 'Contato',
+    user: user,   
   });
 }
 

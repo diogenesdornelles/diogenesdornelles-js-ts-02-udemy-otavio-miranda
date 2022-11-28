@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <%- include('../views/partials/head') %>
 <body class="register">
-  <%- include('../views/partials/header') %>
+  <%- include('../views/partials/header'), {user: user} %>
   <section class="container">
     <h1>Formulário de cadastro</h1>
     <svg width="180" height="3" xmlns="http://www.w3.org/2000/svg">
@@ -19,27 +19,21 @@
     </svg>
     <form action="/registrar" method="POST" class="form" id="form">
       <div class="div-form for-name">
-        <label for="">Nome:</label>
         <input type="text" name="nome" id="nome" placeholder="Nome">
       </div>
       <div class="div-form for-lastname">
-        <label for="">Sobrenome:</label>
         <input type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome">
       </div>
       <div class="div-form for-cpf">
-        <label for="">CPF:</label>
         <input type="text" name="cpf" id="cpf" placeholder="CPF">
       </div>
       <div class="div-form for-user">
-        <label for="">Usuário:</label>
         <input type="text" name="usuario" id="usuario" placeholder="Usuário" >
       </div>
       <div class="div-form for-senha">
-        <label for="">Senha:</label>
         <input type="password" name="senha" id="senha" placeholder="Senha">
       </div>
       <div class="div-form for-repetir-senha">
-        <label for="">Repetir senha:</label>
         <input type="password" name="repetirSenha" id="repetir-senha" placeholder="Repetir senha">
       </div>
       <button type="submit" id="btn-submit" class="btn">Registrar</button>

@@ -9,6 +9,8 @@ const networkController = require('./src/controllers/networkController');
 const loginController = require('./src/controllers/loginController');
 const commentsController = require('./src/controllers/commentsController');
 const registerController = require('./src/controllers/registerController');
+const apiController = require('./src/controllers/apiController');
+
 
 // HOMEPAGE GET
 
@@ -40,8 +42,7 @@ route.get('/login', loginController.loginPage);
 
 // CONTACT POST
 
-//route.post('/login', loginController.loginForm);
-
+route.post('/login', loginController.loginForm);
 
 // COMMENTS GET
 
@@ -59,5 +60,12 @@ route.get('/registrar', registerController.registerPage);
 
 route.post('/registrar', registerController.registerForm);
 
+// API/ADVICE GET
+
+route.get('/api/advice', apiController.apiSendAdvice);
+
+// API/ADVICE/LOGIN GET
+
+route.get('/api/advice/login', apiController.apiSendAdviceLogin);
 
 module.exports = route;

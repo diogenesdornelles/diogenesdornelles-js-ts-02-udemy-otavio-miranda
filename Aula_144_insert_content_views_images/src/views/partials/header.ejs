@@ -1,6 +1,9 @@
 <section class="header">
   <nav>
     <ul>
+      <% if (user !== '') { %> 
+        <li class="li-user"> Bem-vindo: <%= user %>  </li>
+      <% } %> 
       <li><a href="/">Home</a></li>
       <li><a href="/contato">Contato</a></li>
       <li><a href="/sobre">Sobre</a></li>

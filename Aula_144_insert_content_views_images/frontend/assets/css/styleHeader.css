@@ -11,13 +11,21 @@ css frontend
   justify-content: flex-end;
  }
 
+ .header ul .li-user {
+  font-size: 1.5em;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1.5em;
+  color: var(--font-color-yellow);
+  margin-right: 35px;
+ }
+
 .header a {
   text-decoration: none; 
   color: rgb(255, 255, 255);
   font-size: 1.5em;
   font-weight: 800;
   letter-spacing: 2px;
-  transition: all .4s ease-in-out;
   padding: 10px;
   line-height: 1.5em;
  }
