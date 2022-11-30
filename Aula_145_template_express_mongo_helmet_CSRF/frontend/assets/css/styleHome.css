@@ -1,0 +1,48 @@
+/*
+css frontend
+*/
+
+.index {
+  color: white;
+  background-color: rgb(29, 27, 27);
+}
+
+.index .container {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 0 auto;
+  margin-top: 8%;
+  border: 2px solid #FFF;
+  background-color: rgb(0, 0, 0);
+  padding: 2%;
+  border-radius: 12px;
+}
+
+.index .title {
+  text-align: center;
+  font-size: 24px;
+}
+
+.index .form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px
+}
+
+.index input {
+  height: 2em;
+  text-indent: 10px;
+}
+
+.index button {
+  margin-top: 20px;
+  height: 2.3em;
+  cursor: pointer;
+}
+
+.index #csrfToken {
+  display: none;
+}
+
