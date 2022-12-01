@@ -1,0 +1,73 @@
+.index .container .register-painel {
+  width: 30vw;
+  height: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10%;
+}
+
+.index .container .register-painel h1 {
+  text-align: left;
+  height: 5%;
+  width: 100%;
+  font-size: 2.5vh;
+  padding: 3%;
+  margin-bottom: 25px;
+}
+
+.index .container .register-painel .form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.index .container .register-painel input {
+  width: 65%;
+  border: none;
+  border-bottom: 1px solid black;
+  height: 3vh;
+  text-indent: 5px;
+  color: #0a3363;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  border-radius: 7px;
+}
+
+.index .container .register-painel .form input:hover {
+  border: 1px solid #e4e4e4;
+}
+
+.index .container .register-painel .form input:focus {
+  border: 1px solid #c8c8c8;
+  outline: #e9e9e9;
+  background-color: rgb(247, 247, 247);
+}
+
+.index .container .register-painel button {
+  width: 30%;
+  background-color: black;
+  height: 3.5vh;
+  color: white;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+
+.index .container .register-painel .gender-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+.index .container .register-painel .gender-option input {
+  width: 1em;
+  height: 1em;
+}

@@ -5,12 +5,14 @@ css frontend
 .index {
   background-color: white;
   width: 100vw;
-  height: 100vh;
+  height: 95vh;
+  overflow: auto;
 }
 
 .index .container {
   width: 100vw;
-  height: 93vh;
+  height: 91vh;
+  margin: 0 auto;
 }
 
 .index #csrfToken {

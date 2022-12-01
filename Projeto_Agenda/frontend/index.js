@@ -2,6 +2,8 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import './assets/css/styleHome.css';
 import './assets/css/styleHeader.css';
+import './assets/css/styleLogin.css';
+import './assets/css/styleRegister.css';
 import './assets/css/reset.css';
 // frontend
 
@@ -36,32 +38,38 @@ function spaAppConfig() {
     404: {
       template: "/404",
       title: "",
-      description: ""
+      description: "",
+      param: "",
     },
     "/": {
       template: "/",
       title: "",
-      description: ""
+      description: "",
+      param: "",
     },
     "/home": {
       template: "/home",
       title: "",
-      description: ""
+      description: "",
+      param: "nomePage",
     },
     "/entrar": {
       template: "/entrar",
       title: "",
-      description: ""
+      description: "",
+      param: "/loginPage",
     },
     "/registrar": {
       template: "/registrar",
       title: "",
-      description: ""
+      description: "",
+      param: "registerPage",
     },
     "/agenda": {
       template: "/agenda",
       title: "",
-      description: ""
+      description: "",
+      param: "contactBookPage",
     },
   }
 
@@ -81,7 +89,7 @@ function spaAppConfig() {
       location = "/";
     }
     const route = urlRoutes[location] || urlRoutes[404];
-    axios.get(route.template)
+    axios.get(route.template + route.param)
     .then(response => {
       document.querySelector('.index .container').innerHTML = response.data;
     })

@@ -6,6 +6,7 @@ css frontend
   z-index: 10;
   width: 100vw;
   height: 7vh;
+  position: sticky;
 }
 
 .header ul {

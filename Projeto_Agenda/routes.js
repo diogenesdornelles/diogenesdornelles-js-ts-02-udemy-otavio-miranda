@@ -9,12 +9,14 @@ const contactBookController = require('./src/controllers/contactBookController')
 
 route.get('/', indexController.indexPage);
 
-route.get('/home', homeController.homePage);
+route.get('/home:load?', homeController.homePage);
 
-route.get('/entrar', loginController.loginPage);
+route.get('/entrar/:load?', loginController.loginPage);
 
-route.get('/registrar', registerController.registerPage);
+route.get('/registrar:load?', registerController.registerPage);
 
-route.get('/agenda', contactBookController.contactBookPage);
+route.post('/registrar', registerController.registerUser);
+
+route.get('/agenda:load?', contactBookController.contactBookPage);
 
 module.exports = route;
