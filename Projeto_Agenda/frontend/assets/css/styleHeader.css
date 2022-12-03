@@ -13,6 +13,7 @@ css frontend
   display: flex; 
   justify-content: space-around;
   background-color: black;
+  align-items: baseline,
  }
 
 .header a {
@@ -29,4 +30,16 @@ css frontend
   background-color: rgb(44, 44, 44);
 }
 
+.header .logged-user {
+  color: rgb(255, 255, 255);
+  font-size: 1em;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 0 10px 0 10px;
+  line-height: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
 

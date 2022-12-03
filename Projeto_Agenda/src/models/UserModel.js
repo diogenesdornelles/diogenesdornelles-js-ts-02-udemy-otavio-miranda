@@ -1,10 +1,5 @@
 const mongoose = require('mongoose');
 
-var validateEmail = function(email) {
-  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return re.test(email)
-};
-
 class ValidateCpf {
   constructor(cpf){
     this.arrayCpf = cpf.replace(/\D+/g, '').split('');
@@ -45,34 +40,32 @@ class ValidateCpf {
   }
 }
 
-function checkCpf(value) {
-  const cpfResultado = new ValidateCpf(value);
-  if (!cpfResultado.validate()) return false;
-  return true;
-}
-
-
 const UserSchema = new mongoose.Schema({
   name: { 
     type: String,
     required: [true, "No need a name?"],
     trim: true,
     validate: {
-      values: /^[ A-Za-z]+$/, 
-      message: "Name user must have only letters or spaces."
-    }
+      validator: function(value) {
+        return /^[ A-Za-z]+$/.test(value);
+      },
+      message: props => `${props.value} is not a valid name!`
+    },
   },
   surname: { 
     type: String,
     required: [true, "No need a surname?"],
     trim: true,
     validate: {
-      values: /^[ A-Za-z]+$/, 
-      message: "Surname user must have only letters or spaces."
-    }
+      validator: function(value) {
+        return /^[ A-Za-z]+$/.test(value);
+      },
+      message: props => `${props.value} is not a valid name!`
+    },
   },
   birthday: {
     type: Date,
+    trim: true,
     required: [true, "No have birthday?"],
   },
   email: { 
@@ -80,46 +73,64 @@ const UserSchema = new mongoose.Schema({
     lowercase: true,
     required: [true, "Need a e-mail address."],
     trim: true,
-    validate: [validateEmail, 'Please fill a valid email address'],
+    validate: function (value) {
+      var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      return re.test(value);
+    },
+    message: props => `${props.value} is not a valid e-mail!`
   },
   gender: {
-    required: true,
-    enum: ["male", "female"],
-    lowercase: true,
-    trim: true,
+    enum: {
+      values: ["male", "female"],
+    },
   },
   cpf: {
     type: String,
-    required: true,
-    unique: true,
-    validate: {
-      validator: checkCpf,
-      message: props => `${props.value} is not a valid CPF number!`
-    },
     trim: true,
+    required: true,
+    unique: [true, "CPF already registered"],
+    validate: function (value){
+      const cpfResultado = new ValidateCpf(value);
+      if (!cpfResultado.validate()) return false;
+      return true;
+      },
+      message: props => `${props.value} is not a valid CPF number!`
+  },
+  userName: { 
+    type: String,
+    required: [true, "No need a user name?"],
+    trim: true,
+    validate: {
+      validator: function(value) {
+        return /^[ A-Za-z0-9]+$/.test(value);
+      },
+      message: props => `${props.value} is not a valid user name!`
+    },
+    minLength: [4,'Minimun username length 4 characters.'],
+    unique: [true, "username already registered"],
   },
   password: {
     type: String,
     required: true,
     trim: true,
-    minlength: 6,
+    minLength: [6,'Minimun code length 6 characters']
   },
   repPassword: {
     type: String,
     required: true,
     trim: true,
     validate: {
-      validator: function () {
-        if (this.password !== this.repPassword) {
-          return false;
-        }
+      validator: function() {
+        return this.password === this.repPassword;
       },
-      message: props => `Passwords do not match!`
+      message: props => `Password not confirmed!`
     },
+    
   },
-
 }, {timestamps: true});
 
 const User = mongoose.model('User', UserSchema);
 
-module.exports = User;
+module.exports = {
+  User
+}

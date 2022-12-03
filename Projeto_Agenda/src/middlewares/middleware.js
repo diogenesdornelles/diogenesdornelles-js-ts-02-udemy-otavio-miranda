@@ -1,7 +1,10 @@
 // EXAMPLE:
 exports.middlewareGlobal = (req, res, next) => {
-  if (req.body.nome) {
-    console.log(`usuário logado ${req.body.nome}`)
+  if (!req.session.logged) {
+    req.session.user = {
+      logged: false,
+      userName: null,
+    }
   }
   next();
 }

@@ -5,17 +5,18 @@
   <h1>Registrar</h1>
   <form action="/registrar" method="POST" class="form" id="form">
     <input type="hidden" value="<%= csrfToken %>" name="_csrf" class="_csrf">
-    <input type="text" name="name" id="name" placeholder="Nome" required>
-    <input type="text" name="surname" id="surname" placeholder="Sobrenome" required>
+    <input type="text" name="name" id="name" placeholder="Nome" required pattern="[ A-Za-z]*">
+    <input type="text" name="surname" id="surname" placeholder="Sobrenome" required pattern="[ A-Za-z]*">
     <label for="birthday">Data de nascimento</label>
     <input type="date" name="birthday" id="birthday" placeholder="Data de nascimento" required>
-    <input type="email" name="email" id="email" placeholder="E-mail" required>
+    <input type="email" name="email" id="email" placeholder="E-mail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
     <div class="gender-option">
-      Gênero masculino <input type="radio" name="gender" id="gender" value="male" checked>
-      Gênero feminino <input type="radio" name="gender" id="gender" value="female">
+      Gênero masculino <input type="radio" name="gender" id="gender-male" value="male" checked>
+      Gênero feminino <input type="radio" name="gender" id="gender-female" value="female">
     </div>
     <input type="text" name="cpf" id="cpf" placeholder="CPF" pattern="[0-9]{11}" required>
-    <input type="password" name="password" id="password" placeholder="Senha" required>
+    <input type="text" name="userName" id="userName" placeholder="Nome de usuário" required pattern="[ A-Za-z0-9]*">
+    <input type="password" name="password" id="password" placeholder="Senha" required pattern="[A-Za-z0-9!@#$%]{6,}">
     <input type="password" name="repPassword" id="repPassword" placeholder="Repita a senha" required>
     <button type="submit" id="btn-submit" class="btn">Registrar</button>
   </form>

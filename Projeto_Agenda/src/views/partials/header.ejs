@@ -1,6 +1,9 @@
 <section class="header">
   <nav>
     <ul>
+      <% if (typeof logged !== 'undefined') { %> 
+        <li _idUser="<%=_idUser%>" nameUser="<%=userName%>" class="logged-user">Bem-vindo: <%=userName%></li>
+      <% } %>
       <li><a class="link-menu" href="/home">Home</a></li>
       <li><a class="link-menu" href="/entrar">Entrar</a></li>
       <li><a class="link-menu" href="/agenda">Agenda</a></li>
@@ -8,3 +11,5 @@
     </ul>
   </nav>
 </section>
+
+

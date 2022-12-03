@@ -1,1 +1,5 @@
-<h1>Sou agenda</h1>
+<% if (_id) { %> 
+  <h1 id="<%=_id%>"><%=result%> </h1>
+<% } else {%> 
+  <p>Você precisa estar logado para acessar a agenda</p>
+<% } %> 
