@@ -1,5 +1,54 @@
-<% if (_id) { %> 
-  <h1 id="<%=_id%>"><%=result%> </h1>
+<% if (_idUser) { %> 
+  <h1> Projeto Agenda de Contatos 1.0 </h1>
+  <section class="container-contactBook">
+    <div class="div-search">
+      <p>AGENDA</p>
+      <div class="search-inputs">
+        <div class="search-option">
+          <label for="option-search-name">Busca por nome:</label><input type="radio" name="optionsearch" id="option-search-name" checked>
+          <label for="option-search-cpf"> Busca por CPF:</label><input type="radio" name="optionsearch" id="option-search-cpf" >
+        </div>
+        <input type="search" name="search" id="text-search" placeholder="Digite aqui">
+      </div>
+      <div class="btns-div-search">
+        <button id="btn-search">Buscar</button>
+        <button id="btn-insert">Inserir contato</button>
+        <button id="btn-clear">Limpar</button>
+        <button id="btn-load">Carregar lista</button>
+      </div>
+    </div>
+    <form action="/agenda" method="POST" class="form-insert-new-person">
+      <p>Insira um novo contato</p>
+      <input type="hidden" value="<%=csrfToken%>" name="_csrf" class="_csrf">
+      <input type="text" name="name" id="name" placeholder="Nome" required pattern="[A-Za-zÀ-ú0-9 ]*" required>
+      <input type="text" name="surname" id="surname" placeholder="Sobrenome" required pattern="[A-Za-zÀ-ú0-9 ]*">
+      <input type="email" name="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      <input type="tel" name="phone" id="phone" placeholder="Telefone" required pattern="[0-9]{11}">
+      <input type="date" name="birthday" id="birthday" placeholder="Data de nascimento" required>
+      <div id="gender-option">
+        <label for="gender-male">Gênero masculino</label><input type="radio" name="gender" id="gender-male" value="male" checked>
+        <label for="gender-female">Gênero feminino</label><input type="radio" name="gender" id="gender-female" value="female">
+      </div>
+      <input type="text" name="cpf" id="cpf" placeholder="CPF" pattern="[0-9]{11}" required>
+      <div>
+        <button id="btn-send">Enviar</button>
+      </div>
+    </form>
+    <div class="div-close">
+      <button id="btn-close">Fechar</button>
+    </div>
+    <div class="table-contacts">
+      <ul class="row header-table">
+        <li class="cell item-header">Nome</li>
+        <li class="cell item-header">Sobrenome</li>
+        <li class="cell item-header">Email</li>
+        <li class="cell item-header">Telefone</li>
+        <li class="cell item-header">Data de nascimento</li>
+        <li class="cell item-header">Sexo</li>
+        <li class="cell item-header">CPF</li>
+      </ul>
+    </div>
+  </section>
 <% } else {%> 
   <p>Você precisa estar logado para acessar a agenda</p>
 <% } %> 

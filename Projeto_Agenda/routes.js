@@ -22,8 +22,16 @@ route.post('/registrar', registerController.registerUser);
 
 route.get('/agenda/:load?/:_idUser?', contactBookController.contactBookPage);
 
+route.post('/agenda', contactBookController.insertContact);
+
 route.get('/api/advice/register', apiController.apiSendAdviceRegister);
 
 route.get('/api/advice/login', apiController.apiSendAdviceLogin);
+
+route.get('api/searchContact/CPF/:cpfNumber?', apiController.apiSearchByCPFNumber);
+
+route.get('api/searchContact/name/:name?', apiController.apiSearchByName);
+
+route.get('/api/advice/contact', apiController.apiSendAdviceContact);
 
 module.exports = route;

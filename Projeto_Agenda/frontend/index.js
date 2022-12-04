@@ -4,14 +4,104 @@ import './assets/css/styleHome.css';
 import './assets/css/styleHeader.css';
 import './assets/css/styleLogin.css';
 import './assets/css/styleRegister.css';
+import './assets/css/styleContactBook.css';
 import './assets/css/reset.css';
 import 'regenerator-runtime';
 // frontend
 
+function getAlert(url) {
+  setTimeout(() => {
+    axios.get(`http://localhost:3000/api` + `${url}`)
+      .then(response => {
+        let text = '';
+        for (const key in response.data){
+          if (response.data[key]) {
+            text += response.data[key] + '\n'
+          }
+        }
+        alert(text);
+      })
+      .catch(error => console.log(error))
+  }, 1500)
+}
+
+function handleContactBookApp() {
+
+  document.addEventListener('click', handleOperations);
+
+  function handleOperations(event){
+    if (event.target.tagName.toLowerCase() === 'button') {
+      switch (event.target.innerText.toLowerCase()) {
+        case 'buscar': handleSearch();
+        break;
+        case 'inserir contato': showInsertNewPerson();
+        break;
+        case 'limpar': clearInputs();
+        break;
+        case 'carregar lista': handleLoad();
+        break;
+        case 'fechar': hiddenInsertNewPerson();
+        break;
+        case 'enviar': handleSaveContact();
+        break;
+      } 
+    }
+  }
+
+  function handleSaveContact() {
+    getAlert(`/advice/contact`);
+  }
+
+  function handleSearch() {
+    let reqURL;
+    const value = document.querySelector('.container-contactBook #text-search').value;
+    if (value){
+      if (document.querySelector('.container-contactBook #option-search-name').checked) {
+        reqURL = `http://localhost:3000/api/searchContact/CPF/${value}`
+      } else {
+        reqURL = `http://localhost:3000/api/searchContact/name/${value}`
+      }
+      axios.get(reqURL)
+        .then(response => {
+          document.querySelector('.index .container-contactBook').innerHTML = response.data;
+        })
+        .catch(error => console.log(error))
+    } else {
+      alert('Informe dados de pesquisa!')
+    }
+  }
+
+  function handleLoad() {
+    axios.get('http://localhost:3000/agenda')
+      .then(response => {
+        document.querySelector('.index .container-contactBook').innerHTML = response.data;
+      })
+      .catch(error => console.log(error))
+  }
+
+  function showInsertNewPerson(){
+    const formInsert = document.querySelector('.form-insert-new-person'); 
+    const divClose = document.querySelector('.div-close'); 
+    formInsert.style.display = 'flex';
+    divClose.style.display = 'flex';
+  }
+
+  function hiddenInsertNewPerson(){
+    const formInsert = document.querySelector('.form-insert-new-person'); 
+    const divClose = document.querySelector('.div-close'); 
+    formInsert.style.display = 'none';
+    divClose.style.display = 'none';
+  }
+
+  function clearInputs(){
+    const inputs = document.querySelectorAll('FORM INPUT');
+    inputs.forEach(element => element.value = '')
+  }
+}
+
 async function manageLoggedUser(){
   let user;
   const el = document.querySelector('.header nav ul');
-  console.log(el.childElementCount)
   if (el.childElementCount > 4) {
     const _idUser = el.querySelector('.logged-user').getAttribute("_idUser");  
     const nameUser = el.querySelector('.logged-user').getAttribute("nameUser"); 
@@ -125,6 +215,7 @@ async function loadCsrf() {
 
 async function init() {
 
+  
   // initialize localStorage
   await manageLoggedUser();
 
@@ -141,33 +232,20 @@ async function init() {
       el.value = "";
     })
   }
+  handleContactBookApp();
 }
-
-document.addEventListener('click', getBtn);
 
 function getBtn(el) {
   if (el.target.innerText.toLowerCase() === 'registrar' && el.target.tagName.toLowerCase() === 'button'){
-    getAlertError('/advice/register')
+    getAlert('/advice/register')
   } 
   if (el.target.innerText.toLowerCase() === 'logar' && el.target.tagName.toLowerCase() === 'button'){
-    getAlertError('/advice/login')
+    getAlert('/advice/login')
   }
 }
 
-function getAlertError(url) {
-  setTimeout(() => {
-    axios(`http://localhost:3000/api` + `${url}`)
-      .then(response => {
-        let text = '';
-        for (const key in response.data){
-          if (response.data[key]) {
-            text += response.data[key] + '\n'
-          }
-        }
-        alert(text);
-      })
-      .catch(error => console.log(error))
-  }, 50)
-}
-
+document.addEventListener('click', getBtn);
 window.onload = init;
+window.onclose = () => { 
+  window.localStorage.removeItem("loggedUser")
+};

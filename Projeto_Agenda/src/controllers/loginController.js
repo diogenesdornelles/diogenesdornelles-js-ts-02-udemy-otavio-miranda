@@ -24,12 +24,6 @@ exports.loginForm = (req, res, next) => {
   .then(data => {
     if (data) {
       if (data.password === req.body.password) {
-        console.log(data._id)
-        req.session[data._id] = {
-          logged: true,
-          userName: data.userName,
-          _idUser: data._id
-        }
         res.render('index', { 
           logged: true,
           userName: data.userName,
