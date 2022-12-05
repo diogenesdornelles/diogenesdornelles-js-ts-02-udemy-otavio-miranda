@@ -22,7 +22,12 @@ function getAlert(url) {
         alert(text);
       })
       .catch(error => console.log(error))
-  }, 1500)
+  }, 200)
+}
+
+async function getUserId(){
+  const user = JSON.parse(window.localStorage.getItem("loggedUser")); 
+  return user._idUser;
 }
 
 function handleContactBookApp() {
@@ -56,14 +61,14 @@ function handleContactBookApp() {
     let reqURL;
     const value = document.querySelector('.container-contactBook #text-search').value;
     if (value){
-      if (document.querySelector('.container-contactBook #option-search-name').checked) {
-        reqURL = `http://localhost:3000/api/searchContact/CPF/${value}`
+      if (document.querySelector('.container-contactBook #option-search-cpf').checked) {
+        reqURL = `http://localhost:3000/api/searchContact/CPF/${value.trim()}`
       } else {
-        reqURL = `http://localhost:3000/api/searchContact/name/${value}`
+        reqURL = `http://localhost:3000/api/searchContact/name/${value.trim()}`
       }
       axios.get(reqURL)
         .then(response => {
-          document.querySelector('.index .container-contactBook').innerHTML = response.data;
+          document.querySelector('.index #table-contacts').innerHTML = response.data;
         })
         .catch(error => console.log(error))
     } else {
@@ -72,9 +77,9 @@ function handleContactBookApp() {
   }
 
   function handleLoad() {
-    axios.get('http://localhost:3000/agenda')
+    axios.get(`http://localhost:3000/api/loadContacts`)
       .then(response => {
-        document.querySelector('.index .container-contactBook').innerHTML = response.data;
+        document.querySelector('.index #table-contacts').innerHTML = response.data;
       })
       .catch(error => console.log(error))
   }
@@ -94,7 +99,7 @@ function handleContactBookApp() {
   }
 
   function clearInputs(){
-    const inputs = document.querySelectorAll('FORM INPUT');
+    const inputs = document.querySelectorAll('INPUT');
     inputs.forEach(element => element.value = '')
   }
 }
@@ -119,11 +124,6 @@ async function manageLoggedUser(){
   }
   window.localStorage.setItem("loggedUser", JSON.stringify(user)); 
   return;
-}
-
-async function getUserId(){
-  const user = JSON.parse(window.localStorage.getItem("loggedUser")); 
-  return user._idUser;
 }
 
 async function spaAppConfig() {
@@ -215,7 +215,6 @@ async function loadCsrf() {
 
 async function init() {
 
-  
   // initialize localStorage
   await manageLoggedUser();
 
@@ -237,10 +236,10 @@ async function init() {
 
 function getBtn(el) {
   if (el.target.innerText.toLowerCase() === 'registrar' && el.target.tagName.toLowerCase() === 'button'){
-    getAlert('/advice/register')
+    getAlert('/advice/register');
   } 
   if (el.target.innerText.toLowerCase() === 'logar' && el.target.tagName.toLowerCase() === 'button'){
-    getAlert('/advice/login')
+    getAlert('/advice/login');
   }
 }
 

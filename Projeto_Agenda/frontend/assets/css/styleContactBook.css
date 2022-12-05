@@ -48,7 +48,7 @@
   align-self: center;
 }
 
-.container-contactBook .table-contacts {
+.container-contactBook #table-contacts {
   display: table;
   margin: 0 auto;
   margin-top: 3%;
@@ -92,13 +92,12 @@
 {
   display: flex;
   flex-direction: column;
-  margin-top: 4%;
-  gap: 3%;
-  align-self: start;
+  margin-top: 0;
+  align-self: center;
   justify-content: flex-start;
-  width: 100%;
+  width: 60%;
   height: fit-content;
-  padding: 3%;
+  padding: 1%;
 }
 
 .container-contactBook .form-insert-new-person p,
@@ -154,9 +153,9 @@
   display: none;
   flex-direction: column;
   gap: 7px;
-  width: 100%;
-  padding: 3%;
-  margin-top: -2%;
+  width: 60%;
+  padding: 1%;
+  margin-top: 0;
   align-items: stretch;
   text-align: center;
   -webkit-animation: slide-in-fwd-center 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.2s both;
@@ -216,8 +215,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 2%;
-  margin-top: -3%;
+  padding: 0;
+  margin-top: 0;
 }
 
 .container-contactBook .form-insert-new-person p,
@@ -235,3 +234,8 @@
   margin-top: 10px;
 }
 
+
+.container-contactBook #table-contacts .li-btns {
+  display: flex;
+  gap: 7%;
+}

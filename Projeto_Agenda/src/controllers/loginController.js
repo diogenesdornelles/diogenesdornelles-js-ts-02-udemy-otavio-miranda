@@ -13,10 +13,7 @@ exports.loginPage = (req, res) => {
 
 exports.loginForm = (req, res, next) => {
   function turnNullSession() {
-    req.session.validateLogin = {
-      userName: null,
-      password: null,
-    }
+    req.session.validateLogin = {}
   }
   User.findOne({ 
     userName: `${req.body.user}` 

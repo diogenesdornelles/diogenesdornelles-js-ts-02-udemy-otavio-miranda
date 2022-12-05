@@ -1,4 +1,4 @@
-<% if (_idUser) { %> 
+<% if (logged) { %> 
   <h1> Projeto Agenda de Contatos 1.0 </h1>
   <section class="container-contactBook">
     <div class="div-search">
@@ -26,8 +26,8 @@
       <input type="tel" name="phone" id="phone" placeholder="Telefone" required pattern="[0-9]{11}">
       <input type="date" name="birthday" id="birthday" placeholder="Data de nascimento" required>
       <div id="gender-option">
-        <label for="gender-male">Gênero masculino</label><input type="radio" name="gender" id="gender-male" value="male" checked>
-        <label for="gender-female">Gênero feminino</label><input type="radio" name="gender" id="gender-female" value="female">
+        <label for="gender-male">Gênero masculino</label><input type="radio" name="gender" id="gender-male" value="masculino" checked>
+        <label for="gender-female">Gênero feminino</label><input type="radio" name="gender" id="gender-female" value="feminino">
       </div>
       <input type="text" name="cpf" id="cpf" placeholder="CPF" pattern="[0-9]{11}" required>
       <div>
@@ -37,16 +37,8 @@
     <div class="div-close">
       <button id="btn-close">Fechar</button>
     </div>
-    <div class="table-contacts">
-      <ul class="row header-table">
-        <li class="cell item-header">Nome</li>
-        <li class="cell item-header">Sobrenome</li>
-        <li class="cell item-header">Email</li>
-        <li class="cell item-header">Telefone</li>
-        <li class="cell item-header">Data de nascimento</li>
-        <li class="cell item-header">Sexo</li>
-        <li class="cell item-header">CPF</li>
-      </ul>
+    <div id="table-contacts">
+      <%- include('tableContacts', {contacts: contacts}) %>
     </div>
   </section>
 <% } else {%> 

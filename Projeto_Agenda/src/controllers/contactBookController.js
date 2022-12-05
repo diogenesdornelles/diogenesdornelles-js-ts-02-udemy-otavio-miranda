@@ -4,28 +4,30 @@ const { Contact } = require('../models/ContactModel');
 exports.contactBookPage = (req, res) => {
   if (req.params.load === 'contactBookPage' && typeof req.params._idUser !== 'undefined') {
     User.findOne({ 
-      _id: `${req.params._idUser}` 
+      _id: req.params._idUser
     })
     .then(data => {
       if (data) {
+        Contact.find()
+        .then( data => {
+          res.render('contactBook', {
+                          logged: true, 
+                          contacts: data, 
+                          }
+    )}).catch( err => console.log(err));
+      } else {
         res.render('contactBook', {
-          logged: true, 
-          userName: data.userName, 
-          _idUser: data._id, 
-        });
-      }}
-    )
-    .catch( err => {console.log(err)
-      res.status(204).send();
-    }
-    );
-  } else {
-    res.render('contactBook', {
-      logged: false, 
-      userName: false, 
-      _idUser: false, 
-    });
-  }
+                logged: false, 
+                contacts: false, 
+              }
+            )}
+    }).catch( err => console.log(err));
+} else {
+  res.render('contactBook', {
+          logged: false, 
+          contacts: false, 
+        }
+      )}
 }
 
 exports.insertContact = (req, res ) => {
