@@ -1,6 +1,6 @@
 const { User } = require('../models/UserModel');
 // renderize HTML
-exports.registerPage = (req, res) => {
+exports.get_register_page = (req, res) => {
   if (req.params.load === 'registerPage') {
   res.render('register', {
     title: 'Registro',
@@ -12,14 +12,7 @@ exports.registerPage = (req, res) => {
   }
 }
 
-exports.registerUser = (req, res) => {
-  function turnNullSession() {
-    req.session.validateUser = {
-      cpf: null,
-      userName: null,
-      password: null,
-    }
-  }
+exports.post_register_user = (req, res) => {
   User.create({
     name: req.body.name,
     surname: req.body.surname,
@@ -38,7 +31,6 @@ exports.registerUser = (req, res) => {
     });
   })
   .catch(err => {
-    turnNullSession();
     if (err.code === 11000) {
       if ('cpf' in err.keyPattern){
         req.session.validateUser.cpf = 'CPF já consta no cadastro.';

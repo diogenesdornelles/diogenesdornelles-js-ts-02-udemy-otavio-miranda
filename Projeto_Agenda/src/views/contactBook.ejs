@@ -18,7 +18,7 @@
       </div>
     </div>
     <form action="/agenda" method="POST" class="form-insert-new-person">
-      <p>Insira um novo contato</p>
+      <p>Registrar novo contato</p>
       <input type="hidden" value="<%=csrfToken%>" name="_csrf" class="_csrf">
       <input type="text" name="name" id="name" placeholder="Nome" required pattern="[A-Za-zÀ-ú0-9 ]*" required>
       <input type="text" name="surname" id="surname" placeholder="Sobrenome" required pattern="[A-Za-zÀ-ú0-9 ]*">
@@ -41,6 +41,25 @@
       <%- include('tableContacts', {contacts: contacts}) %>
     </div>
   </section>
+  <dialog class="update-contact">
+    <p>Alterar informações</p>
+    <section id="container-dialog">
+      Nome: <input type="text" id="new-name" placeholder="Nome" required pattern="[A-Za-zÀ-ú0-9 ]*" required>
+      Sobrenome: <input type="text" id="new-surname" placeholder="Sobrenome" required pattern="[A-Za-zÀ-ú0-9 ]*">
+      E-mail: <input type="email" id="new-email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      Telefone: <input type="tel" id="new-phone" placeholder="Telefone" required pattern="[0-9]{11}">
+      Data de nascimento: <input type="date" id="new-birthday" placeholder="Data de nascimento" required>
+      <div id="new-gender-option">
+        <label for="gender-male">Gênero masculino</label><input type="radio" name="gender" id="new-gender-male" value="masculino" checked>
+        <label for="gender-female">Gênero feminino</label><input type="radio" name="gender" id="new-gender-female" value="feminino">
+      </div>
+      CPF: <input type="text" id="new-cpf" placeholder="CPF" pattern="[0-9]{11}" required>
+      <div class="btns-dialog">
+        <button id="dialog-btn-send">Alterar</button>
+        <button id="dialog-btn-close">Fechar</button>
+      </div>
+    </section>
+  </dialog>
 <% } else {%> 
   <p>Você precisa estar logado para acessar a agenda</p>
 <% } %> 

@@ -1,70 +1,17 @@
-const { Contact } = require('../models/ContactModel');
-
-exports.apiSendAdviceRegister = (req, res) => {
+exports.get_advice_register = (req, res) => {
   res.status(200).json(req.session.validateUser); 
+  req.session.validateUser = {};
+  req.session.save();
 } 
 
-exports.apiSendAdviceLogin = (req, res) => {
+exports.get_advice_login = (req, res) => {
   res.status(200).json(req.session.validateLogin); 
+  req.session.validateLogin = {};
+  req.session.save();
 } 
 
-exports.apiSearchByCPFNumber = (req, res) => {
-  console.log(req.params)
-  Contact.findOne({ 
-    cpf: req.params.cpfNumber,
-  })
-  .then(data => {
-    if (data) {
-      res.render('tableContacts', {
-        contacts: [data], 
-        })
-    } else {
-      res.render('tableContacts', {
-        contacts: false, 
-      }
-    )}
-    }).catch( err => console.log(err));
-}
-
-exports.apiSearchByName = (req, res) => {
-  console.log(req.params)
-  Contact.findOne({ 
-    name: req.params.name,
-  })
-  .then(data => {
-    let result;
-    if (data) {
-      if (typeof data === 'object') {
-        result = [data]
-      } else {
-        result = data;
-      }
-      res.render('tableContacts', {
-        contacts: result, 
-        })
-    } else {
-      res.render('tableContacts', {
-        contacts: false, 
-      }
-    )}
-    }).catch( err => console.log(err));
-}
-
-exports.apiSendAdviceContact = (req, res) => {
+exports.get_advice_contact = (req, res) => {
   res.status(200).json(req.session.validateContact); 
+  req.session.validateContact = {};
+  req.session.save();
 } 
-
-exports.apiLoadContacts = (req, res) => {
-  Contact.find()
-  .then( data => {
-    if (data) {
-      res.render('tableContacts', {
-        contacts: data, 
-        })
-    } else {
-      res.render('tableContacts', {
-        contacts: false, 
-        })
-    }
-    }).catch( err => console.log(err))
-}

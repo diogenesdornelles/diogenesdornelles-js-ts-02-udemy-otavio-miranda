@@ -8,33 +8,36 @@ const registerController = require('./src/controllers/registerController');
 const contactBookController = require('./src/controllers/contactBookController');
 const apiController = require('./src/controllers/apiController');
 
-route.get('/', indexController.indexPage);
+route.get('/', indexController.get_index_page);
 
-route.get('/home:load?', homeController.homePage);
+route.get('/home:load?', homeController.get_home_page);
 
-route.get('/entrar/:load?', loginController.loginPage);
+route.get('/entrar/:load?', loginController.get_login_page);
 
-route.post('/entrar', loginController.loginForm);
+route.post('/entrar', loginController.post_login_form);
 
-route.get('/registrar:load?', registerController.registerPage);
+route.get('/registrar:load?', registerController.get_register_page);
 
-route.post('/registrar', registerController.registerUser);
+route.post('/registrar', registerController.post_register_user);
 
-route.get('/agenda/:load?/:_idUser?', contactBookController.contactBookPage);
+route.delete('/delete/contato/:_idContact', contactBookController.delete_contact);
 
-route.post('/agenda', contactBookController.insertContact);
+route.get('/agenda/contatos', contactBookController.get_all_contacts);
 
-route.get('/api/advice/register', apiController.apiSendAdviceRegister);
+route.get('/agenda/searchContact/CPF/:cpfNumber?', contactBookController.get_contact_by_cpf);
 
-route.get('/api/advice/login', apiController.apiSendAdviceLogin);
+route.get('/agenda/searchContact/name/:name?', contactBookController.get_contact_by_name);
 
-route.get('/api/searchContact/CPF/:cpfNumber?', apiController.apiSearchByCPFNumber);
+route.get('/agenda/:load?/:_idUser?', contactBookController.get_contactBook_page);
 
-route.get('/api/searchContact/name/:name?', apiController.apiSearchByName);
+route.post('/agenda', contactBookController.create_contact);
 
-route.get('/api/advice/contact', apiController.apiSendAdviceContact);
+route.put('/update/contato/:_idContact', contactBookController.update_contact);
 
-route.get('/api/loadContacts', apiController.apiLoadContacts);
+route.get('/api/advice/register', apiController.get_advice_register);
 
+route.get('/api/advice/login', apiController.get_advice_login);
+
+route.get('/api/advice/contact', apiController.get_advice_contact);
 
 module.exports = route;

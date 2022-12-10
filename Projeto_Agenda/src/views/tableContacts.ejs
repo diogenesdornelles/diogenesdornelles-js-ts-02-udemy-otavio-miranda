@@ -9,7 +9,7 @@
   <li class="cell item-header">Ações</li>
 </ul>
 <% if (contacts) { %> 
-  <% const options = { year: 'numeric', month: 'long', day: 'numeric' }; %> 
+  <% const options = { year: 'numeric', month: 'numeric', day: 'numeric' }; %> 
   <% contacts.forEach(contact => { %>
     <ul class="row row-body">
       <li class="cell cell-body">
@@ -34,12 +34,8 @@
         <%=contact.cpf%>
       </li>
       <li class="cell cell-body li-btns">
-        <form action="/agenda" method="DELETE" class="delete-contact">
-          <button type="submit" name="_id" value="<%=contact._id%>">Deletar</button>
-        </form>
-        <div class="update-contact">
-          <button>Atualizar</button>
-        </div>
+        <a class="delete-contact" data-id="<%=contact._id%>">Deletar</a>
+        <a class="update-contact" data-id="<%=contact._id%>">Atualizar</a>
       </li>
     </ul>
   <% });  %> 

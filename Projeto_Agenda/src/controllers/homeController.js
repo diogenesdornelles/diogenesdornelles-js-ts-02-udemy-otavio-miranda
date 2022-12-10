@@ -1,4 +1,4 @@
-exports.homePage = (req, res) => {
+exports.get_home_page = (req, res) => {
   if (req.params.load === 'homePage') {
   res.render('home', {
     title: 'Home',

@@ -15,7 +15,6 @@ exports.commentsPage = (req, res) => {
         user: user,
       });
     })
-    
 }
 
 // // obter dados form via post

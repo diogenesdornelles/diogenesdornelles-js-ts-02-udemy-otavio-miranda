@@ -1,4 +1,4 @@
-exports.indexPage = (req, res) => {
+exports.get_index_page = (req, res) => {
   res.render('index', {
     title: 'Home',
   });

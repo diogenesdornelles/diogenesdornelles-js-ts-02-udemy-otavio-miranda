@@ -1,6 +1,6 @@
 const { User } = require('../models/UserModel');
 // renderize HTML
-exports.loginPage = (req, res) => {
+exports.get_login_page = (req, res) => {
   if (req.params.load === 'loginPage') {
   res.render('login', {
     title: 'Entrar'
@@ -11,28 +11,26 @@ exports.loginPage = (req, res) => {
   });
 }
 
-exports.loginForm = (req, res, next) => {
-  function turnNullSession() {
-    req.session.validateLogin = {}
-  }
+exports.post_login_form = (req, res, next) => {
   User.findOne({ 
-    userName: `${req.body.user}` 
+    userName: req.body.user
   })
   .then(data => {
     if (data) {
       if (data.password === req.body.password) {
+        req.session.validateLogin.password = 'Usuário autenticado.';
         res.render('index', { 
           logged: true,
           userName: data.userName,
           _idUser: data._id,
         })
       } else {
-          turnNullSession();
           req.session.validateLogin.password = 'Senha incorreta.';
+          res.status(204).send();
         };
     } else {
-        turnNullSession();
         req.session.validateLogin.userName = 'Usuário incorreto.';
+        res.status(204).send();
       }
     }
   )

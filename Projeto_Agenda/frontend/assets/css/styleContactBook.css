@@ -11,6 +11,8 @@
 	animation: fade-in-fwd 0.8s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.4s both;
 }
 
+
+
 @-webkit-keyframes fade-in-fwd {
   0% {
     -webkit-transform: translateZ(-80px);
@@ -110,7 +112,8 @@
 
 .container-contactBook .form-insert-new-person input,
 .container-contactBook .div-search div input,
-.container-contactBook .div-close div input
+.container-contactBook .div-close div input,
+#container-dialog input
 {
   width: 65%;
   border: none;
@@ -134,7 +137,11 @@
   background-color: rgb(247, 247, 247);
 }
 
-.container-contactBook button {
+.container-contactBook button,
+.container-contactBook .delete-contact,
+.container-contactBook .update-contact,
+#container-dialog button
+{
   background-color: #000000;
   color: rgb(231, 239, 255);
   width: fit-content;
@@ -143,6 +150,8 @@
   height: 4vh;
   margin-left: 0;
   border-radius: 7px;
+  line-height: 4vh;
+  font-size: .8em;
 }
 
 .container-contactBook button:hover{
@@ -188,7 +197,8 @@
 }
 
 .container-contactBook .search-option, 
-.container-contactBook #gender-option 
+.container-contactBook #gender-option,
+.container-contactBook #new-gender-option
 {
   display: flex;
   flex-direction: row;
@@ -198,7 +208,8 @@
 }
 
 .container-contactBook .search-option input[type="radio"], 
-.container-contactBook #gender-option input[type="radio"]
+.container-contactBook #gender-option input[type="radio"],
+#container-dialog input[type="radio"]
 {
   width: 1em;
   height: 1em;
@@ -238,4 +249,25 @@
 .container-contactBook #table-contacts .li-btns {
   display: flex;
   gap: 7%;
+}
+
+#container-dialog {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 5%;
+  gap: 7px;
+}
+
+.update-contact p {
+  text-align: center;
+  font-size: 1.8em;
+  padding: 5px;
+}
+
+#container-dialog .btns-dialog {
+  margin-top: 3%;
+  display: flex;
+  justify-content: space-evenly;
 }

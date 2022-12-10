@@ -36,8 +36,15 @@ const helmet = require('helmet');
 // csrfTokens for forms
 const csrf = require('csurf');
 
+// const bodyParser = require('body-parser');
+
+// const cookieParser = require('cookie-parser');
+
 // Middlewares for routes
 const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware');
+
+// app.use(bodyParser);
+// app.use(cookieParser());
 
 // Deactived in localhost to permit external services, like axios.
 //app.use(helmet());
