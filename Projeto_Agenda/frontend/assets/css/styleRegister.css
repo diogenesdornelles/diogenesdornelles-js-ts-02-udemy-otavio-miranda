@@ -39,11 +39,9 @@
 
 .index .container .register-painel h1 {
   text-align: left;
-  height: 5%;
   width: 100%;
-  font-size: 3.5vh;
-  padding: 3%;
-  margin-bottom: 25px;
+  font-size: 4.5vh;
+  margin: 5% 0 7% 0;
 }
 
 .index .container .register-painel .form {
@@ -77,14 +75,26 @@
   background-color: rgb(247, 247, 247);
 }
 
-.index .container .register-painel button {
-  width: 30%;
-  background-color: black;
-  height: 3.5vh;
-  color: white;
-  border-radius: 7px;
+.index .container .register-painel button 
+
+{
+  background-color: #000000;
+  color: rgb(231, 239, 255);
+  width: fit-content;
+  padding: 0px 20px;
   cursor: pointer;
-  margin-top: 4%;
+  height: 4.5vh;
+  margin-left: 0;
+  border-radius: 7px;
+  line-height: 4vh;
+  font-size: .9em;
+  font-weight: 800;
+  transition: all 0.5s ease;
+}
+.index .container .register-painel button:hover
+{
+  background-color: #020c22;
+  padding: 0px 40px;
 }
 
 

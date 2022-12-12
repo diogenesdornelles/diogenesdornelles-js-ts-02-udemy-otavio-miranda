@@ -1,34 +1,33 @@
 /*
 css frontend
 */
+/* 
+*/
 
 .header {
-  z-index: 10;
   width: 100vw;
-  height: 7vh;
   position: sticky;
 }
 
 .header ul {
   display: flex; 
-  justify-content: space-around;
+  justify-content: flex-end;
   background-color: black;
-  align-items: baseline,
+  align-items: baseline;
+  padding: 1vh 0 0.5vh 0;
  }
 
 .header a {
-  text-decoration: none; 
-  color: rgb(255, 255, 255);
-  font-size: 1.5em;
-  font-weight: 800;
   letter-spacing: 2px;
-  padding: 0 10px 0 10px;
-  line-height: 1.5em;
+  padding: 4vh 10px 0 10px;
+  margin-right: 3vw;
+  transition: all 0.4s ease;
+  border-bottom: 1px solid #FFF;
  }
 
-.header li:hover {
-  background-color: rgb(44, 44, 44);
-}
+ .header a:hover {
+  background-color: #0c214e;
+ }
 
 .header .logged-user {
   color: rgb(255, 255, 255);
@@ -43,3 +42,9 @@ css frontend
   align-content: center;
 }
 
+.header img {
+  height: 4vh;
+  width: auto;
+  filter: invert(1);
+  pointer-events: none;
+}

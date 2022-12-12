@@ -6,12 +6,14 @@ import './assets/css/styleLogin.css';
 import './assets/css/styleRegister.css';
 import './assets/css/styleContactBook.css';
 import './assets/css/reset.css';
+import './assets/css/style.css';
 import 'regenerator-runtime';
 import spaAppConfig from './assets/modules/spaApp';
 import handleContactBookApp from './assets/modules/contactBookApp';
 import manageLoggedUser from './assets/modules/manageLoggedUser';
 import loadCsrf from './assets/modules/loadCsrf';
 import getAlert from "./assets/modules/getAlert";
+import loadImages from "./assets/modules/loadImages";
 // frontend
 
 function clearInputs() {
@@ -42,6 +44,8 @@ async function init() {
 
   // load csrfToken on hidden inputs
   await loadCsrf();
+
+  await loadImages();
 
   // clear inputs
   clearInputs();

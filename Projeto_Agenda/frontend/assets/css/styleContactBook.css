@@ -11,8 +11,6 @@
 	animation: fade-in-fwd 0.8s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.4s both;
 }
 
-
-
 @-webkit-keyframes fade-in-fwd {
   0% {
     -webkit-transform: translateZ(-80px);
@@ -140,6 +138,7 @@
 .container-contactBook button,
 .container-contactBook .delete-contact,
 .container-contactBook .update-contact,
+.container-contactBook .copy-contact,
 #container-dialog button
 {
   background-color: #000000;
@@ -147,14 +146,21 @@
   width: fit-content;
   padding: 0px 20px;
   cursor: pointer;
-  height: 4vh;
+  height: 4.5vh;
   margin-left: 0;
   border-radius: 7px;
   line-height: 4vh;
-  font-size: .8em;
+  font-size: .9em;
+  font-weight: 800;
+  transition: all 0.5s ease;
 }
 
-.container-contactBook button:hover{
+.container-contactBook button:hover,
+.container-contactBook .delete-contact:hover,
+.container-contactBook .update-contact:hover,
+.container-contactBook .copy-contact:hover,
+#container-dialog button:hover
+{
   background-color: #020c22;
 }
 
@@ -248,7 +254,7 @@
 
 .container-contactBook #table-contacts .li-btns {
   display: flex;
-  gap: 7%;
+  gap: 3%;
 }
 
 #container-dialog {

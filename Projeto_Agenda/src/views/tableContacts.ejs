@@ -34,8 +34,9 @@
         <%=contact.cpf%>
       </li>
       <li class="cell cell-body li-btns">
-        <a class="delete-contact" data-id="<%=contact._id%>">Deletar</a>
-        <a class="update-contact" data-id="<%=contact._id%>">Atualizar</a>
+        <a class="delete-contact" data-id="<%=contact._id%>" data-title="Deletar contato">Deletar</a>
+        <a class="update-contact" data-id="<%=contact._id%>" data-title="Atualizar os dados do contato">Atualizar</a>
+        <a class="copy-contact" data-title="Copiar dados do contato">Copiar</a>
       </li>
     </ul>
   <% });  %> 

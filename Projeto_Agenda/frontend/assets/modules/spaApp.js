@@ -7,7 +7,8 @@ export default async function spaAppConfig() {
 
   document.addEventListener('click', (e) => {
     const { target } = e;
-    if (!target.matches("nav a")){
+    console.log(target)
+    if (!target.matches("nav .link-menu") && !target.matches("nav .home-image")){
       return;
     }
     e.preventDefault();
@@ -28,14 +29,14 @@ export default async function spaAppConfig() {
       template: "/",
       title: "",
       description: "",
-      param: "initial",
+      param: "",
       _idUser: '',
     },
     "/home": {
       template: "/home",
       title: "",
       description: "",
-      param: "homePage",
+      param: "/homePage/",
       _idUser: '',
     },
     "/entrar": {
@@ -49,7 +50,7 @@ export default async function spaAppConfig() {
       template: "/registrar",
       title: "",
       description: "",
-      param: "registerPage",
+      param: "/registerPage",
       _idUser: '',
     },
     "/agenda": {
@@ -66,7 +67,7 @@ export default async function spaAppConfig() {
     event.preventDefault();
     window.history.pushState({},
       "",
-      event.target.href
+      event.target.href 
     );
     urlLocationHandler();
   }

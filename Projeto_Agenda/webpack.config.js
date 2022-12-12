@@ -31,8 +31,8 @@ module.exports = {
       ]
     },
     {
-     test: /\.(gif|png|jpe?g|svg|xml|json)$/i,
-     type: 'asset/inline'
+      test: /\.(gif|png|jpe?g|svg|xml|json)$/i,
+      type: 'asset/inline'
     },
     {
       test: /\.(woff|woff2|eot|ttf|otf)$/i,

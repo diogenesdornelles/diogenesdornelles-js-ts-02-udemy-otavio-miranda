@@ -3,8 +3,8 @@ exports.get_home_page = (req, res) => {
   res.render('home', {
     title: 'Home',
   });
-  } else {
-     return;
-  }
+  } else res.render('_blank', {
+    title: ''
+  });
 }
 

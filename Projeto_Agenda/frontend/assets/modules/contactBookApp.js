@@ -1,5 +1,25 @@
 import getAlert from "./getAlert";
 
+export function hiddenInsertNewPerson(){
+  const formInsert = document.querySelector('.form-insert-new-person'); 
+  const divClose = document.querySelector('.div-close'); 
+  formInsert.style.display = 'none';
+  divClose.style.display = 'none';
+}
+
+export function clearInputs(){
+  const inputs = document.querySelectorAll('INPUT');
+  inputs.forEach(element => element.value = '')
+}
+
+export function loadTableContacts(url) {
+  axios.get(url)
+  .then(response => {
+    document.querySelector('.index #table-contacts').innerHTML = response.data;
+  })
+  .catch(error => console.log(error))
+}
+
 export default function handleContactBookApp() {
   
   const urlLoadContacts = `/agenda/contatos`;
@@ -25,23 +45,16 @@ export default function handleContactBookApp() {
         break;
         case 'atualizar': handleUpdateContact(event.target);
         break;
+        case 'copiar': handleCopyContact(event.target);
+        break;
       } 
     }
   }
 
-  function loadTableContacts(url) {
-    axios.get(url)
-    .then(response => {
-      document.querySelector('.index #table-contacts').innerHTML = response.data;
-    })
-    .catch(error => console.log(error))
-  }
-
   function handleUpdateContact(element) {
     
-    
-    
     function saveModifies () {
+
       const _csrf = document.querySelector('._csrf').value;
       let genderOption;
       if (document.querySelector('#new-gender-male').checked) {
@@ -56,7 +69,7 @@ export default function handleContactBookApp() {
         surname: surname.value,
         email: email.value,
         phone: phone.value,
-        birthday: birthday.value,
+        birthday: `${birthday.value}T00:00`,
         gender: genderOption,
         cpf: cpf.value,
       }
@@ -70,6 +83,7 @@ export default function handleContactBookApp() {
       })
       .then(response => {
         console.log(response);
+        getAlert(`contact`);
       }).catch(error => console.log(error))
     }
 
@@ -125,7 +139,6 @@ export default function handleContactBookApp() {
     }, 500);
     };
   }
-
 
   function handleSaveContact() {
     setTimeout(() => {
@@ -185,15 +198,19 @@ export default function handleContactBookApp() {
     divClose.style.display = 'flex';
   }
 
-  function hiddenInsertNewPerson(){
-    const formInsert = document.querySelector('.form-insert-new-person'); 
-    const divClose = document.querySelector('.div-close'); 
-    formInsert.style.display = 'none';
-    divClose.style.display = 'none';
-  }
-
-  function clearInputs(){
-    const inputs = document.querySelectorAll('INPUT');
-    inputs.forEach(element => element.value = '')
+  function handleCopyContact(element){
+    let infos = [];
+    let data = ['Nome: ', 'Sobrenome: ', 'Email: ', 'telefone: ', 'Data de nascimento: ', 'Sexo: ', 'CPF: '];
+    let text = '';
+    const ul = element.parentNode.parentNode;
+    const lis = ul.querySelectorAll('LI:not(.li-btns)');
+    lis.forEach((li) => {
+      infos.push(li.innerText);
+    })
+    infos.forEach((info, index) => {
+      text += `${data[index]}${info} \n`;
+    })
+    navigator.clipboard.writeText(text);
+    alert(`Dados do contato: \n ${text}`);
   }
 }

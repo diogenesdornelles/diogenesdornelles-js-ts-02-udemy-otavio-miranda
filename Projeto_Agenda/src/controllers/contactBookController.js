@@ -38,7 +38,7 @@ exports.create_contact = (req, res ) => {
     surname: req.body.surname,
     email: req.body.email,
     phone: req.body.phone,
-    birthday: new Date(req.body.birthday),
+    birthday: new Date(`${req.body.birthday}T00:00`),
     gender: req.body.gender,
     cpf: req.body.cpf,
   })
@@ -46,7 +46,6 @@ exports.create_contact = (req, res ) => {
     console.log(data);
     req.session.validateContact.success = 'Contato salvo no cadastro!';
     req.session.save();
-    // render contactBook att
     res.status(204).send();
   })
   .catch(err => {
@@ -132,17 +131,45 @@ exports.update_contact = (req, res) => {
     {
       _id: req.params._idContact
     },
-    {
-    name: req.body.data.name,
-    surname: req.body.data.surname,
-    email: req.body.data.email,
-    phone: req.body.phone,
-    birthday: new Date(req.body.data.birthday),
-    gender: req.body.data.gender,
-    cpf: req.body.data.cpf,
+    { $set: {
+      name: req.body.data.name,
+      surname: req.body.data.surname,
+      email: req.body.data.email,
+      phone: req.body.phone,
+      birthday: new Date(req.body.data.birthday),
+      gender: req.body.data.gender,
+      cpf: req.body.data.cpf,
+      }
+    },
+    { 
+      runValidators: true, 
+      new: true,
+    },
+  )
+  .then( data => {
+    console.log(data);
+    req.session.validateContact.success = 'Contato atualizado no cadastro!';
+    req.session.save();
+    res.status(204).send();
   })
-  .then( data => console.log(data))
-  .catch( err => console.log(err))
+  .catch(err => {
+    if (err.name === 'ValidationError'){
+      if ('cpf' in err.errors) {
+        req.session.validateContact.cpf = 'CPF inválido!';
+        req.session.save();
+        res.status(204).send();
+        return;
+      } 
+    } 
+    if (err.code === 11000) {
+      if ('cpf' in err.keyPattern){
+        req.session.validateContact.cpf = 'CPF já consta no cadastro!';
+        req.session.save();
+        res.status(204).send();
+        return;
+      } 
+    } 
+  });
 }
 
 // DELETE

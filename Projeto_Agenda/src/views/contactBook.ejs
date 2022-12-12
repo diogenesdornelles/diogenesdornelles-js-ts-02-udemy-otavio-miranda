@@ -11,10 +11,10 @@
         <input type="search" name="search" id="text-search" placeholder="Digite aqui">
       </div>
       <div class="btns-div-search">
-        <button id="btn-search">Buscar</button>
-        <button id="btn-insert">Inserir contato</button>
-        <button id="btn-clear">Limpar</button>
-        <button id="btn-load">Carregar lista</button>
+        <button id="btn-search" data-title="Encontrar um contato">Buscar</button>
+        <button id="btn-insert" data-title="Inserir um contato novo">Inserir contato</button>
+        <button id="btn-clear" data-title="Limpar campos">Limpar</button>
+        <button id="btn-load" data-title="Recarregar lista">Carregar lista</button>
       </div>
     </div>
     <form action="/agenda" method="POST" class="form-insert-new-person">
@@ -31,11 +31,11 @@
       </div>
       <input type="text" name="cpf" id="cpf" placeholder="CPF" pattern="[0-9]{11}" required>
       <div>
-        <button id="btn-send">Enviar</button>
+        <button id="btn-send" data-title="Submeter formulário">Enviar</button>
       </div>
     </form>
     <div class="div-close">
-      <button id="btn-close">Fechar</button>
+      <button id="btn-close" data-title="Fechar painel">Fechar</button>
     </div>
     <div id="table-contacts">
       <%- include('tableContacts', {contacts: contacts}) %>
@@ -55,8 +55,8 @@
       </div>
       CPF: <input type="text" id="new-cpf" placeholder="CPF" pattern="[0-9]{11}" required>
       <div class="btns-dialog">
-        <button id="dialog-btn-send">Alterar</button>
-        <button id="dialog-btn-close">Fechar</button>
+        <button id="dialog-btn-send" data-title="Alterar um contato existente">Alterar</button>
+        <button id="dialog-btn-close" data-title="Fechar painel">Fechar</button>
       </div>
     </section>
   </dialog>

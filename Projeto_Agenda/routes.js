@@ -8,15 +8,15 @@ const registerController = require('./src/controllers/registerController');
 const contactBookController = require('./src/controllers/contactBookController');
 const apiController = require('./src/controllers/apiController');
 
-route.get('/', indexController.get_index_page);
+route.get('/:load?', indexController.get_index_page);
 
-route.get('/home:load?', homeController.get_home_page);
+route.get('/home/:load?', homeController.get_home_page);
 
 route.get('/entrar/:load?', loginController.get_login_page);
 
 route.post('/entrar', loginController.post_login_form);
 
-route.get('/registrar:load?', registerController.get_register_page);
+route.get('/registrar/:load?', registerController.get_register_page);
 
 route.post('/registrar', registerController.post_register_user);
 
