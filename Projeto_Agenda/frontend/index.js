@@ -11,7 +11,6 @@ import 'regenerator-runtime';
 import spaAppConfig from './assets/modules/spaApp';
 import handleContactBookApp from './assets/modules/contactBookApp';
 import manageLoggedUser from './assets/modules/manageLoggedUser';
-import loadCsrf from './assets/modules/loadCsrf';
 import getAlert from "./assets/modules/getAlert";
 import loadImages from "./assets/modules/loadImages";
 // frontend
@@ -27,10 +26,12 @@ function clearInputs() {
 
 function getBtn(el) {
   if (el.target.innerText.toLowerCase() === 'registrar' && el.target.tagName.toLowerCase() === 'button'){
-    getAlert('register');
+    const userName = document.querySelector('#userName').value;
+    getAlert('register', userName);
   } 
   if (el.target.innerText.toLowerCase() === 'logar' && el.target.tagName.toLowerCase() === 'button'){
-    getAlert('login');
+    const userName = document.querySelector('#userName').value;
+    getAlert('login', userName);
   }
 }
 
@@ -42,14 +43,13 @@ async function init() {
   // initialize SPA
   await spaAppConfig();
 
-  // load csrfToken on hidden inputs
-  await loadCsrf();
-
+  // load images 
   await loadImages();
 
   // clear inputs
   clearInputs();
   
+  // controll contactbook application
   handleContactBookApp();
 }
 

@@ -7,7 +7,6 @@ export default async function spaAppConfig() {
 
   document.addEventListener('click', (e) => {
     const { target } = e;
-    console.log(target)
     if (!target.matches("nav .link-menu") && !target.matches("nav .home-image")){
       return;
     }
@@ -29,7 +28,7 @@ export default async function spaAppConfig() {
       template: "/",
       title: "",
       description: "",
-      param: "",
+      param: "initial",
       _idUser: '',
     },
     "/home": {

@@ -28,6 +28,7 @@ const flash = require('connect-flash');
 const routes = require('./routes');
 
 //
+
 const path = require('path');
 
 // For security application
@@ -41,7 +42,7 @@ const csrf = require('csurf');
 // const cookieParser = require('cookie-parser');
 
 // Middlewares for routes
-const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware');
+const { middlewareGlobal, checkCsrfError, csrfMiddleware, ignoreFavicon } = require('./src/middlewares/middleware');
 
 // app.use(bodyParser);
 // app.use(cookieParser());
@@ -81,6 +82,7 @@ app.use(csrf());
 app.use(middlewareGlobal);
 app.use(checkCsrfError);
 app.use(csrfMiddleware);
+app.use(ignoreFavicon);
 app.use(routes);
 
 // Initialize server

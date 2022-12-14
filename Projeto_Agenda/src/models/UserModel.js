@@ -8,7 +8,7 @@ class ValidateCpf {
   }
 
   validate(){
-    if (typeof this.arrayCpf === 'undefined') return false;
+    if (typeof this.arrayCpf === undefined) return false;
     if (this.arrayCpf.length !== 11) return false;
     if (this.isSequence()) return false;
     this.firstDigit = this.verifyDigits(9);

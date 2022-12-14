@@ -1,9 +1,9 @@
 import { hiddenInsertNewPerson, clearInputs, loadTableContacts } from "./contactBookApp";
 
-export default function getAlert(url) {
+export default function getAlert(url, name = '') {
   const urlLoadContacts = `/agenda/contatos`;
   setTimeout(() => {
-    axios.get(`/api/advice/${url}`)
+    axios.get(`/api/advice/${url}/${name}`)
       .then(response => {
         let text = '';
         
@@ -11,7 +11,7 @@ export default function getAlert(url) {
           if (response.data[key]) {
             text += response.data[key] + '\n'
           }
-        }
+        } 
 
         if (text.includes('salvo')){
           alert(text);
@@ -32,10 +32,16 @@ export default function getAlert(url) {
           return;
         }
 
+        if (text.includes('autenticado') || text.includes('criado')){
+          alert(text);
+          clearInputs();
+          return;
+        }
+
         if (text !== ''){
           alert(text);
         }
       })
       .catch(error => console.log(error));
-  }, 400)
+  }, 500)
 }

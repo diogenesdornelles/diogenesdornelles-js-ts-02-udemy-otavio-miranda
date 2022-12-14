@@ -9,7 +9,7 @@ export function hiddenInsertNewPerson(){
 
 export function clearInputs(){
   const inputs = document.querySelectorAll('INPUT');
-  inputs.forEach(element => element.value = '')
+  inputs.forEach(element => element.value = '');
 }
 
 export function loadTableContacts(url) {
@@ -55,7 +55,7 @@ export default function handleContactBookApp() {
     
     function saveModifies () {
 
-      const _csrf = document.querySelector('._csrf').value;
+      const _csrf = document.querySelector('._csrf-update').value;
       let genderOption;
       if (document.querySelector('#new-gender-male').checked) {
         genderOption = 'masculino';
@@ -83,7 +83,7 @@ export default function handleContactBookApp() {
       })
       .then(response => {
         console.log(response);
-        getAlert(`contact`);
+        getAlert(`contact`, cpf.value);
       }).catch(error => console.log(error))
     }
 
@@ -141,14 +141,15 @@ export default function handleContactBookApp() {
   }
 
   function handleSaveContact() {
+    const cpf = document.querySelector('#cpf');
     setTimeout(() => {
       loadTableContacts(urlLoadContacts);
     }, 500);
-    getAlert(`contact`);
+    getAlert(`contact`, cpf.value);
   }
 
   async function handleDeleteContact(element) {
-    const _csrf = document.querySelector('._csrf').value;
+    const _csrf = document.querySelector('._csrf-delete').value;
     const id = element.dataset.id;
     let reqURLId = `/delete/contato/${id}`;
     axios.delete(reqURLId, {

@@ -8,7 +8,7 @@ const registerController = require('./src/controllers/registerController');
 const contactBookController = require('./src/controllers/contactBookController');
 const apiController = require('./src/controllers/apiController');
 
-route.get('/:load?', indexController.get_index_page);
+route.get('/', indexController.get_index_page);
 
 route.get('/home/:load?', homeController.get_home_page);
 
@@ -28,16 +28,16 @@ route.get('/agenda/searchContact/CPF/:cpfNumber?', contactBookController.get_con
 
 route.get('/agenda/searchContact/name/:name?', contactBookController.get_contact_by_name);
 
-route.get('/agenda/:load?/:_idUser?', contactBookController.get_contactBook_page);
+route.get('/agenda/:load?/:_idUser?', contactBookController.loginIsRequired, contactBookController.get_contactBook_page);
 
 route.post('/agenda', contactBookController.create_contact);
 
 route.put('/update/contato/:_idContact', contactBookController.update_contact);
 
-route.get('/api/advice/register', apiController.get_advice_register);
+route.get('/api/advice/register/:userName', apiController.get_advice_register);
 
-route.get('/api/advice/login', apiController.get_advice_login);
+route.get('/api/advice/login/:userName', apiController.get_advice_login);
 
-route.get('/api/advice/contact', apiController.get_advice_contact);
+route.get('/api/advice/contact/:cpf', apiController.get_advice_contact);
 
 module.exports = route;

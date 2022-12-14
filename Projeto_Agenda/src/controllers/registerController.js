@@ -26,26 +26,26 @@ exports.post_register_user = (req, res) => {
   })
   .then((data) => {
     console.log(data);
-    res.render('successRegister', {
-      userName: data.userName,
-    });
+    req.session[`${req.body.userName}`] = {user: 'Usuário criado no cadastro!'};
+    req.session.save();
+    res.status(204).send();
   })
   .catch(err => {
     if (err.code === 11000) {
       if ('cpf' in err.keyPattern){
-        req.session.validateUser.cpf = 'CPF já consta no cadastro.';
+        req.session[`${req.body.userName}`] = {cpf: 'CPF já consta no cadastro!'};
       } 
       if ('userName' in err.keyPattern){
-        req.session.validateUser.userName = 'Usuário já consta no cadastro.';
+        req.session[`${req.body.userName}`] = {user: 'Usuário já consta no cadastro!'};
       } 
     } 
     if (err.name === 'ValidationError'){
       if ('cpf' in err.errors) {
-        req.session.validateUser.cpf = 'CPF inválido.';
+        req.session[`${req.body.userName}`] = {cpf: 'CPF inválido!'};
       } 
     } 
     if (req.body.password !== req.body.repPassword){
-      req.session.validateUser.password = 'Senhas não conferem.';
+      req.session[`${req.body.userName}`] = {password: 'Senhas não conferem!'};
     } 
     req.session.save();
     res.status(204).send();
