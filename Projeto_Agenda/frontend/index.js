@@ -11,7 +11,7 @@ import 'regenerator-runtime';
 import spaAppConfig from './assets/modules/spaApp';
 import handleContactBookApp from './assets/modules/contactBookApp';
 import manageLoggedUser from './assets/modules/manageLoggedUser';
-import getAlert from "./assets/modules/getAlert";
+import handleFrontEnd from "./assets/modules/handleFrontEnd";
 import loadImages from "./assets/modules/loadImages";
 // frontend
 
@@ -27,34 +27,36 @@ function clearInputs() {
 function getBtn(el) {
   if (el.target.innerText.toLowerCase() === 'registrar' && el.target.tagName.toLowerCase() === 'button'){
     const userName = document.querySelector('#userName').value;
-    getAlert('register', userName);
+    handleFrontEnd('register', userName);
   } 
   if (el.target.innerText.toLowerCase() === 'logar' && el.target.tagName.toLowerCase() === 'button'){
     const userName = document.querySelector('#userName').value;
-    getAlert('login', userName);
+    handleFrontEnd('login', userName);
   }
 }
 
 async function init() {
+  try {
+    await manageLoggedUser();
 
-  // initialize localStorage
-  await manageLoggedUser();
-
-  // initialize SPA
-  await spaAppConfig();
-
-  // load images 
-  await loadImages();
-
-  // clear inputs
-  clearInputs();
+    // initialize SPA
+    await spaAppConfig();
   
-  // controll contactbook application
-  handleContactBookApp();
+    // load images 
+    await loadImages();
+  
+    // clear inputs
+    clearInputs();
+    
+    // controll contactbook application
+    handleContactBookApp();
+  } catch(e) {
+    console.log(e);
+  }
 }
 
 document.addEventListener('click', getBtn);
 window.onload = init;
 window.onclose = () => { 
-  window.localStorage.removeItem("loggedUser")
+  window.localStorage.removeItem("loggedUser");
 };

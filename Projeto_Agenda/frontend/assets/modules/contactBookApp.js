@@ -1,4 +1,4 @@
-import getAlert from "./getAlert";
+import handleFrontEnd from "./handleFrontEnd";
 
 export function hiddenInsertNewPerson(){
   const formInsert = document.querySelector('.form-insert-new-person'); 
@@ -13,21 +13,31 @@ export function clearInputs(){
 }
 
 export function loadTableContacts(url) {
-  axios.get(url)
-  .then(response => {
-    document.querySelector('.index #table-contacts').innerHTML = response.data;
+  setTimeout(() => {
+    axios.get(url)
+    .then(response => {
+      document.querySelector('.index #table-contacts').innerHTML = response.data;
+    })
+    .catch(error => console.log(error));
+    }, 500)
+}
+
+
+function validateInputs(array) {
+  array.forEach(el => {
+    if (!el.checkValidity()) return false;
   })
-  .catch(error => console.log(error))
+  return true;
 }
 
 export default function handleContactBookApp() {
-  
+
   const urlLoadContacts = `/agenda/contatos`;
 
   document.addEventListener('click', handleOperations);
 
   function handleOperations(event){
-    if (event.target.tagName.toLowerCase() === 'button' || event.target.tagName.toLowerCase() === 'a') {
+    if (event.target.tagName.toLowerCase() === 'button' || event.target.tagName.toLowerCase() === 'a'){
       switch (event.target.innerText.toLowerCase()) {
         case 'buscar': handleSearch();
         break;
@@ -55,16 +65,20 @@ export default function handleContactBookApp() {
     
     function saveModifies () {
 
-      const _csrf = document.querySelector('._csrf-update').value;
+      const _csrf = document.querySelector('.header-table ._csrf');
       let genderOption;
       if (document.querySelector('#new-gender-male').checked) {
         genderOption = 'masculino';
       } else if (document.querySelector('#new-gender-female').checked) {
         genderOption = 'feminino';
       }
-
       const birthday = document.querySelector('#new-birthday');
-      const data = {
+
+      const arrayEls = [name, surname, email, phone, birthday, cpf];
+      if (!validateInputs(arrayEls)) return;
+
+      axios.put(`/update/contato/${id}`, {
+        _csrf:  _csrf.dataset.csrftoken,
         name: name.value,
         surname: surname.value,
         email: email.value,
@@ -72,19 +86,11 @@ export default function handleContactBookApp() {
         birthday: `${birthday.value}T00:00`,
         gender: genderOption,
         cpf: cpf.value,
-      }
-      axios.put(`/update/contato/${id}`, {
-        _csrf: _csrf,
-        data: data,
-        headers: {
-          'X-CSRFToken': _csrf,
-        },
-        withCredentials: true
       })
       .then(response => {
         console.log(response);
-        getAlert(`contact`, cpf.value);
-      }).catch(error => console.log(error))
+        handleFrontEnd(`contact`, cpf.value);
+      }).catch(error => console.log(error));
     }
 
     function configureUIModal(){
@@ -127,6 +133,7 @@ export default function handleContactBookApp() {
       document.querySelector('#new-gender-female').checked = true;
     }
     cpf.value = infos[6];
+    
     const btnSend = document.querySelector('#dialog-btn-send');
     btnSend.addEventListener('click', saveModifies);
     const btnClose = document.querySelector('#dialog-btn-close');
@@ -134,41 +141,66 @@ export default function handleContactBookApp() {
     {
     modal.close();
     modal.style.display = 'none';
-    setTimeout(() => {
-      loadTableContacts(urlLoadContacts);
-    }, 500);
     };
   }
 
   function handleSaveContact() {
-    const cpf = document.querySelector('#cpf');
-    setTimeout(() => {
-      loadTableContacts(urlLoadContacts);
-    }, 500);
-    getAlert(`contact`, cpf.value);
+ 
+    const _csrf = document.querySelector('.header-table ._csrf');
+    const name = document.querySelector('#contact-name');
+    const surname = document.querySelector('#contact-surname');
+    const email = document.querySelector('#contact-email');
+    const phone = document.querySelector('#contact-phone');
+    const birthday = document.querySelector('#contact-birthday');
+    const cpf = document.querySelector('#contact-cpf');
+    let genderOption;
+    if (document.querySelector('#contact-gender-male').checked) {
+      genderOption = 'masculino';
+    } else if (document.querySelector('#contact-gender-female').checked) {
+      genderOption = 'feminino';
+    }
+
+    const arrayEls = [name.checkValidity(), surname.checkValidity(), email.checkValidity(), phone.checkValidity(), birthday.checkValidity(), cpf.checkValidity()];
+    if (arrayEls.includes(false)) return;
+    else {
+      axios.post(`/agenda`, {
+        _csrf: _csrf.dataset.csrftoken,
+        name: name.value,
+        surname: surname.value,
+        email: email.value,
+        phone: phone.value,
+        birthday: `${birthday.value}T00:00`,
+        gender: genderOption,
+        cpf: cpf.value,
+      })
+      .then(response => {
+        console.log(response);
+        handleFrontEnd(`contact`, cpf.value);
+      }).catch(error => console.log(error)) 
+    }
   }
 
-  async function handleDeleteContact(element) {
-    const _csrf = document.querySelector('._csrf-delete').value;
+    
+
+  function handleDeleteContact(element) {
+    const _csrf = document.querySelector('.header-table ._csrf');
     const id = element.dataset.id;
     let reqURLId = `/delete/contato/${id}`;
     axios.delete(reqURLId, {
-      data: {_csrf: _csrf},
+      data: {_csrf: _csrf.dataset.csrftoken},
       headers: {
-        'X-CSRFToken': _csrf,
+        'X-CSRFToken': _csrf.dataset.csrftoken,
       },
       withCredentials: true
     })
     .then(() => { 
-      setTimeout(() => {
-        loadTableContacts(urlLoadContacts);
-      }, 500);
+      loadTableContacts(urlLoadContacts);
     })
     .catch((error) => {console.log(error)});
-    }
+  }
   
   function handleSearch() {
-    hiddenInsertNewPerson();
+    
     let reqURL;
     const value = document.querySelector('.container-contactBook #text-search').value;
     if (value){
@@ -177,19 +209,16 @@ export default function handleContactBookApp() {
       } else {
         reqURL = `/agenda/searchContact/name/${value.trim()}`
       }
-      setTimeout(() => {
-        loadTableContacts(reqURL);
-      }, 500);
+      loadTableContacts(reqURL);
+      hiddenInsertNewPerson();
     } else {
       alert('Informe dados de pesquisa!')
     }
   }
 
   function handleLoad() {
+    loadTableContacts(urlLoadContacts);
     hiddenInsertNewPerson();
-    setTimeout(() => {
-      loadTableContacts(urlLoadContacts);
-    }, 50);
   }
 
   function showInsertNewPerson(){

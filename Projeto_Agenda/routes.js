@@ -40,4 +40,6 @@ route.get('/api/advice/login/:userName', apiController.get_advice_login);
 
 route.get('/api/advice/contact/:cpf', apiController.get_advice_contact);
 
+route.get('/logout', indexController.get_index_page);
+
 module.exports = route;

@@ -15,7 +15,4 @@ css frontend
   overflow-x: hidden;
 }
 
-.index #csrfToken {
-  display: none;
-}
 

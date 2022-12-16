@@ -2,16 +2,13 @@ const { User } = require('../models/UserModel');
 // renderize HTML
 exports.get_login_page = (req, res) => {
   if (req.params.load === 'loginPage') {
-  res.render('login', {
-    title: 'Entrar'
-  });
+  res.render('login');
   }
-  else res.render('index', {
-    title: ''
-  });
+  else res.render('index');
 }
 
 exports.post_login_form = (req, res, next) => {
+  
   User.findOne({ 
     userName: req.body.userName
   })

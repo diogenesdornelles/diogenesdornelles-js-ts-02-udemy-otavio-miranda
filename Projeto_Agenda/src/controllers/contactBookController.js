@@ -1,8 +1,6 @@
 const { User } = require('../models/UserModel');
 const { Contact } = require('../models/ContactModel');
 
-
-
 exports.loginIsRequired = (req, res, next) => {
   if (req.params.load === 'contactBookPage' && (typeof req.params._idUser !== undefined)) {
     User.findOne({ 
@@ -40,25 +38,29 @@ exports.get_contactBook_page = (req, res) => {
 
 // CREATE
 exports.create_contact = (req, res ) => {
+  console.log(req.body)
+  
   Contact.create({
     name: req.body.name,
     surname: req.body.surname,
     email: req.body.email,
     phone: req.body.phone,
-    birthday: new Date(`${req.body.birthday}T00:00`),
+    birthday: new Date(`${req.body.birthday}`),
     gender: req.body.gender,
     cpf: req.body.cpf,
   })
   .then((data) => {
     console.log(data);
-    req.session[`${req.body.cpf}`] = {contact: 'Contato salvo no cadastro!'};
+    req.session[req.body.cpf] = {contact: 'Contato salvo no cadastro!'};
     req.session.save();
     res.status(204).send();
+    return;
   })
   .catch(err => {
+    console.log(err);
     if (err.name === 'ValidationError'){
       if ('cpf' in err.errors) {
-        req.session[`${req.body.cpf}`] = {cpf: 'CPF inválido!'};
+        req.session[req.body.cpf] = {cpf: 'CPF inválido!'};
         req.session.save();
         res.status(204).send();
         return;
@@ -66,7 +68,7 @@ exports.create_contact = (req, res ) => {
     } 
     if (err.code === 11000) {
       if ('cpf' in err.keyPattern){
-        req.session[`${req.body.cpf}`] = {cpf: 'CPF já consta no cadastro!'};
+        req.session[req.body.cpf] = {cpf: 'CPF já consta no cadastro!'};
         req.session.save();
         res.status(204).send();
         return;
@@ -138,13 +140,13 @@ exports.update_contact = (req, res) => {
       _id: req.params._idContact
     },
     { $set: {
-      name: req.body.data.name,
-      surname: req.body.data.surname,
-      email: req.body.data.email,
-      phone: req.body.data.phone,
-      birthday: new Date(req.body.data.birthday),
-      gender: req.body.data.gender,
-      cpf: req.body.data.cpf,
+      name: req.body.name,
+      surname: req.body.surname,
+      email: req.body.email,
+      phone: req.body.phone,
+      birthday: new Date(req.body.birthday),
+      gender: req.body.gender,
+      cpf: req.body.cpf,
       }
     },
     { 
@@ -154,7 +156,7 @@ exports.update_contact = (req, res) => {
   )
   .then( data => {
     console.log(data);
-    req.session[`${req.body.data.cpf}`] = {contact: 'Contato atualizado no cadastro!'};
+    req.session[`${req.body.cpf}`] = {contact: 'Contato atualizado no cadastro!'};
     req.session.save();
     res.status(204).send();
     return;
@@ -162,7 +164,7 @@ exports.update_contact = (req, res) => {
   .catch(err => {
     if (err.name === 'ValidationError'){
       if ('cpf' in err.errors) {
-        req.session[`${req.body.data.cpf}`] = {cpf: 'CPF inválido!'};
+        req.session[`${req.body.cpf}`] = {cpf: 'CPF inválido!'};
         req.session.save();
         res.status(204).send();
         return;
@@ -170,7 +172,7 @@ exports.update_contact = (req, res) => {
     } 
     if (err.code === 11000) {
       if ('cpf' in err.keyPattern){
-        req.session[`${req.body.data.cpf}`] = {cpf: 'CPF já consta no cadastro!'};
+        req.session[`${req.body.cpf}`] = {cpf: 'CPF já consta no cadastro!'};
         req.session.save();
         res.status(204).send();
         return;

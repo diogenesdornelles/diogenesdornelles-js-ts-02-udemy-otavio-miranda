@@ -26,8 +26,8 @@ exports.post_register_user = (req, res) => {
   })
   .then((data) => {
     console.log(data);
-    req.session[`${req.body.userName}`] = {user: 'Usuário criado no cadastro!'};
-    req.session.save();
+    req.session[`${req.body.userName}`] = {user: 'Usuário criado no cadastro! Faça o login!'};
+    // req.session.save();
     res.status(204).send();
   })
   .catch(err => {

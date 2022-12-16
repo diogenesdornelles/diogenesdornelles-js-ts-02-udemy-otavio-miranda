@@ -14,7 +14,7 @@
       Gênero masculino <input type="radio" name="gender" id="gender-male" value="male" checked>
       Gênero feminino <input type="radio" name="gender" id="gender-female" value="female">
     </div>
-    <input type="text" name="cpf" id="cpf" placeholder="CPF" pattern="[0-9]{11}" required>
+    <input type="text" name="cpf" id="cpf" placeholder="CPF" pattern="[0-9]{11}" required inputmode="number" minlength="11" maxlength="11" autocomplete="off">
     <input type="text" name="userName" id="userName" placeholder="Nome de usuário" required pattern="[ A-Za-z0-9]*">
     <input type="password" name="password" id="password" placeholder="Senha" required pattern="[A-Za-z0-9!@#$%]{6,}">
     <input type="password" name="repPassword" id="repPassword" placeholder="Repita a senha" required>

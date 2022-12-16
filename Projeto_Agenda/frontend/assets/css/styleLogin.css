@@ -38,7 +38,7 @@
 }
 
 .index .container .login-painel h1 {
-  text-align: left;
+  text-align: center;
   height: 5%;
   width: 100%;
   font-size: 5.5vh;
@@ -96,4 +96,3 @@
   background-color: #020c22;
   padding: 0px 40px;
 }
-

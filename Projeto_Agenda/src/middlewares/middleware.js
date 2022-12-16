@@ -10,14 +10,15 @@ exports.middlewareGlobal = (req, res, next) => {
 }
 
 exports.checkCsrfError = (err, req, res, next) => {
-  if (err && err.code === 'EBADCSRFTOKEN') {
-    console.log(err)
-    return res.redirect('/');
+  console.log(req.body)
+  if (err) {
+    return res.render('404');
   }
 }
 
 exports.csrfMiddleware = (req, res, next) => {
-  res.locals.csrfToken = req.csrfToken();
+  const csrfToken = req.csrfToken();
+  res.locals.csrfToken = csrfToken;
   next();
 }
 
@@ -27,5 +28,3 @@ exports.ignoreFavicon = (req, res, next) => {
   }
   next();
 }
-
-

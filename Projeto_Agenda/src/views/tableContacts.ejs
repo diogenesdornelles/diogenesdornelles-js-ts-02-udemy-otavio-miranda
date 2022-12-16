@@ -1,4 +1,5 @@
 <ul class="row header-table">
+  <meta data-csrftoken="<%=csrfToken%>" class="_csrf">
   <li class="cell item-header">Nome</li>
   <li class="cell item-header">Sobrenome</li>
   <li class="cell item-header">Email</li>
@@ -34,13 +35,13 @@
         <%=contact.cpf%>
       </li>
       <li class="cell cell-body li-btns">
-        <input type="hidden" value="<%=csrfToken%>" name="_csrf" class="_csrf-delete">
-        <a class="delete-contact" data-id="<%=contact._id%>" data-title="Deletar contato">Deletar</a>
-        <a class="update-contact" data-id="<%=contact._id%>" data-title="Atualizar os dados do contato">Atualizar</a>
-        <a class="copy-contact" data-title="Copiar dados do contato">Copiar</a>
+        <a class="delete-contact a-btn" data-id="<%=contact._id%>" data-title="Deletar contato">Deletar</a>
+        <a class="update-contact a-btn" data-id="<%=contact._id%>" data-title="Atualizar os dados do contato">Atualizar</a>
+        <a class="copy-contact a-btn" data-title="Copiar dados do contato">Copiar</a>
       </li>
     </ul>
   <% });  %> 
   <% } else { %>
     <p>Não foram encontrados contatos</p>
   <% } %>  
+  

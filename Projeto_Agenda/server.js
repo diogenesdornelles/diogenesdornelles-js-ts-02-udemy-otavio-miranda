@@ -37,12 +37,12 @@ const helmet = require('helmet');
 // csrfTokens for forms
 const csrf = require('csurf');
 
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 // Middlewares for routes
-const { middlewareGlobal, checkCsrfError, csrfMiddleware, ignoreFavicon } = require('./src/middlewares/middleware');
+const { ignoreFavicon, middlewareGlobal, csrfMiddleware, checkCsrfError } = require('./src/middlewares/middleware');
 
 // app.use(bodyParser);
 // app.use(cookieParser());
@@ -66,22 +66,24 @@ const sessionOptions = session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 100,// * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 30,
     httpOnly: true
   }
 });
 
 app.use(sessionOptions);
 app.use(flash());
-
+app.use(cookieParser('dfsdehjgtdfdfsfsdfsdfsghasd'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 // Set views
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
 
-app.use(csrf());
+app.use(csrf( { cookie: true } ));
+app.use(csrfMiddleware);
 app.use(middlewareGlobal);
 app.use(checkCsrfError);
-app.use(csrfMiddleware);
 app.use(ignoreFavicon);
 app.use(routes);
 
