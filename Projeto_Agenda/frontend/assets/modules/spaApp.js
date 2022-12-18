@@ -86,8 +86,7 @@ export default async function spaAppConfig() {
       axios.get(route.template + route.param + route._idUser)
       .then(response => {
         document.querySelector('.index .container').innerHTML = response.data;
-        if (route.template === '/agenda/') {
-          console.log(route.template)
+        if (route.template.includes('agenda')) {
           initForm();
         }
       })

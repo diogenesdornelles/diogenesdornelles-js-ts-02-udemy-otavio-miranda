@@ -226,10 +226,16 @@
   margin-top: 10px;
 }
 
-
 .container-contactBook #table-contacts .li-btns {
   display: flex;
   gap: 3%;
+  justify-content: center;
+}
+
+.container-contactBook .input-select {
+  display: flex;
+  justify-content: center;
+  align-items: center
 }
 
 #container-dialog {

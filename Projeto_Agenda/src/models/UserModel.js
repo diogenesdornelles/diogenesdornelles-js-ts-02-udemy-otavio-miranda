@@ -74,18 +74,6 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     minLength: [6,'Minimun code length 6 characters']
   },
-  repPassword: {
-    type: String,
-    required: true,
-    trim: true,
-    validate: {
-      validator: function() {
-        return this.password === this.repPassword;
-      },
-      message: props => `Password not confirmed!`
-    },
-    
-  },
 }, {timestamps: true});
 
 const User = mongoose.model('User', UserSchema);

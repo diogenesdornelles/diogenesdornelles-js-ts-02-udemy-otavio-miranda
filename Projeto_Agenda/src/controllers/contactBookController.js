@@ -1,5 +1,6 @@
 const { User } = require('../models/UserModel');
 const { Contact } = require('../models/ContactModel');
+const { Schedule } = require('../models/ScheduleModel');
 
 exports.loginIsRequired = (req, res, next) => {
   if (req.params.load === 'contactBookPage' && (typeof req.params._idUser !== undefined)) {
@@ -25,27 +26,28 @@ exports.loginIsRequired = (req, res, next) => {
 };
 
 // RENDERIZE FULL PAGE
-
 exports.get_contactBook_page = (req, res) => {
         Contact.find().sort({ name: 1 })
         .then( data => {
           res.render('contactBook', {
                           logged: true, 
                           contacts: data, 
-                          }
-    )}).catch( err => console.log(err));
+                        }
+    )}).catch( err => {
+      console.log(err);
+      res.render('404');
+    });
 } 
 
 // CREATE
 exports.create_contact = (req, res ) => {
-  console.log(req.body)
-  
+
   Contact.create({
     name: req.body.name,
     surname: req.body.surname,
     email: req.body.email,
     phone: req.body.phone,
-    birthday: new Date(`${req.body.birthday}`),
+    date: new Date(`${req.body.date}`),
     gender: req.body.gender,
     cpf: req.body.cpf,
   })
@@ -90,7 +92,10 @@ exports.get_all_contacts = (req, res) => {
         contacts: false, 
         })
     }
-    }).catch( err => console.log(err))
+    }).catch( err => {
+      console.log(err);
+      res.render('404');
+    });
 }
 
 exports.get_contact_by_cpf = (req, res) => {
@@ -107,7 +112,10 @@ exports.get_contact_by_cpf = (req, res) => {
         contacts: false, 
       }
     )}
-    }).catch( err => console.log(err));
+    }).catch( err => {
+      console.log(err);
+      res.render('404');
+    });
 }
 
 exports.get_contact_by_name = (req, res) => {
@@ -130,7 +138,10 @@ exports.get_contact_by_name = (req, res) => {
         contacts: false, 
       }
     )}
-    }).catch( err => console.log(err));
+    }).catch( err => {
+      console.log(err);
+      res.render('404');
+    });
 }
 
 // UPDATE
@@ -156,7 +167,7 @@ exports.update_contact = (req, res) => {
   )
   .then( data => {
     console.log(data);
-    req.session[`${req.body.cpf}`] = {contact: 'Contato atualizado no cadastro!'};
+    req.session[req.body.cpf] = {contact: 'Contato atualizado no cadastro!'};
     req.session.save();
     res.status(204).send();
     return;
@@ -164,7 +175,7 @@ exports.update_contact = (req, res) => {
   .catch(err => {
     if (err.name === 'ValidationError'){
       if ('cpf' in err.errors) {
-        req.session[`${req.body.cpf}`] = {cpf: 'CPF inválido!'};
+        req.session[req.body.cpf] = {cpf: 'CPF inválido!'};
         req.session.save();
         res.status(204).send();
         return;
@@ -172,12 +183,16 @@ exports.update_contact = (req, res) => {
     } 
     if (err.code === 11000) {
       if ('cpf' in err.keyPattern){
-        req.session[`${req.body.cpf}`] = {cpf: 'CPF já consta no cadastro!'};
+        req.session[req.body.cpf] = {cpf: 'CPF já consta no cadastro!'};
         req.session.save();
         res.status(204).send();
         return;
       } 
     } 
+    else {
+      console.log(err);
+      res.render('404');
+    }
   });
 }
 
@@ -186,5 +201,32 @@ exports.delete_contact = (req, res) => {
   Contact.findByIdAndDelete(req.params._idContact)
   .then( () => {
     res.status(204).send();
-    }).catch( err => console.log(err));
+    }).catch( err => {
+      console.log(err);
+      res.render('404');
+    });
 };
+
+// CREATE SCHEDULE
+exports.create_schedule = (req, res ) => {
+
+  Schedule.create({
+    name: req.body.name,
+    surname: req.body.surname,
+    _idContact: req.params._idContact,
+    service: req.body.service,
+    date: new Date(req.body.date),
+    time: req.body.time,
+    message: req.body.message,
+  })
+  .then((data) => {
+    console.log(data);
+    req.session[req.params._idContact] = {schedule: 'Tarefa agendada no cadastro!'};
+    req.session.save();
+    res.status(204).send();
+    return;
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}

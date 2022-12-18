@@ -73,7 +73,7 @@ const sessionOptions = session({
 
 app.use(sessionOptions);
 app.use(flash());
-app.use(cookieParser('dfsdehjgtdfdfsfsdfsdfsghasd'))
+app.use(cookieParser('HGBbgvGCnghCkn8655667GgCGBgcT445gVGVCfjhvhgv'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // Set views

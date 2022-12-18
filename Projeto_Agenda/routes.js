@@ -32,6 +32,8 @@ route.get('/agenda/:load?/:_idUser?', contactBookController.loginIsRequired, con
 
 route.post('/agenda', contactBookController.create_contact);
 
+route.post('/agenda/servicos/:_idContact', contactBookController.create_schedule);
+
 route.put('/update/contato/:_idContact', contactBookController.update_contact);
 
 route.get('/api/advice/register/:userName', apiController.get_advice_register);
@@ -39,6 +41,8 @@ route.get('/api/advice/register/:userName', apiController.get_advice_register);
 route.get('/api/advice/login/:userName', apiController.get_advice_login);
 
 route.get('/api/advice/contact/:cpf', apiController.get_advice_contact);
+
+route.get('/api/advice/service/:_idContact', apiController.get_advice_schedule);
 
 route.get('/logout', indexController.get_index_page);
 

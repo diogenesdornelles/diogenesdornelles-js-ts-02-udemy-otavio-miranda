@@ -25,3 +25,16 @@ exports.get_advice_contact = (req, res) => {
   delete req.session[req.params.cpf];
   req.session.save();
 } 
+
+exports.get_advice_schedule = (req, res) => {
+  while (typeof req.session[req.params._idContact] === undefined) {
+    setTimeout(() => {}, 500)
+  }
+  res.status(200).json(req.session[req.params._idContact]); 
+  delete req.session[req.params._idContact];
+  req.session.save();
+} 
+
+
+
+

@@ -1,4 +1,4 @@
-/* [data-title]:hover:after {
+[data-title]:hover:after {
   opacity: 1;
   transition: all 0.1s ease 0.5s;
   visibility: visible;
@@ -21,7 +21,7 @@
 }
 [data-title] {
   position: relative;
-} */
+}
 
 input[type="radio"]
 {
@@ -68,6 +68,11 @@ input[type="email"]:focus {
   border: 1px solid #c8c8c8;
   outline: #e9e9e9;
   background-color: rgb(247, 247, 247);
+}
+
+input[type="checkbox"] {
+  accent-color: black;
+  text-align: center;
 }
 
 button,

@@ -7,4 +7,3 @@ exports.get_home_page = (req, res) => {
     title: ''
   });
 }
-
