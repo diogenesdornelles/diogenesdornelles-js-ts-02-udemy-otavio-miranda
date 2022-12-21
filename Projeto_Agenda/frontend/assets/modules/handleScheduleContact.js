@@ -1,53 +1,48 @@
 import handleFrontEnd from "./handleFrontEnd";
 import clearInputs from "./clearInputs";
 
-function validateInputs(array) {
-  array.forEach(el => {
-    if (!el.checkValidity()) return false;
-  })
-  return true;
-}
-
 function saveSchedule (id) {
   
   const _name = document.querySelector('#schedule-name');
   const surname = document.querySelector('#schedule-surname');
   const date = document.querySelector('#date');
-  const time = document.querySelector('#time');
-  const service = document.querySelector('#service-options');
-  const message = document.querySelector('#message');
-
+  const timeStart = document.querySelector('#timestart');
+  const timeEnd = document.querySelector('#timeend');
+  const type = document.querySelector('#event-options');
+  const title = document.querySelector('#title-event');
   const _csrf = document.querySelector('.header-table ._csrf');
   
-  const arrayEls = [_name, surname, date, time, service, message];
-  if (!validateInputs(arrayEls)) return;
+  const arrayEls = [_name.checkValidity(), surname.checkValidity(), date.checkValidity(), timeStart.checkValidity(), timeEnd.checkValidity(), type.checkValidity(), title.checkValidity()];
+  if (arrayEls.includes(false)) return;
 
-  axios.post(`/agenda/servicos/${id}`, {
+  axios.post(`/salvar/evento/${id}`, {
     _csrf: _csrf.dataset.csrftoken,
     name: _name.value,
     surname: surname.value,
-    date: date.value,
-    time: time.value,
-    service: service.value,
-    message: message.value,
+    start: `${date.value}T${timeStart.value}:00`,
+    end: `${date.value}T${timeEnd.value}:00`,
+    type: type.value,
+    title: title.value,
   })
   .then(response => {
-    console.log(response);
-    handleFrontEnd(`service`, id);
+    // console.log(response);
+    handleFrontEnd(`event`, id);
   }).catch(error => console.log(error));
 }
 
-async function configureUIModal(modal){
+function configureUIModal(modal){
   modal.style.display = "flex";
   modal.style.flexDirection = "column";
-  modal.style.width = '40vw';
+  modal.style.width = '45vw';
+  modal.style.height = '75vh';
   modal.style.position = "absolute";
   modal.style.top = "50%";
   modal.style.left = "50%";
   modal.style.transform = "translate(-50%, -50%)";
 }
 
-async function setDataOnFields(lis) {
+function setDataOnFields(lis) {
+  clearInputs();
   const _name = document.querySelector('#schedule-name');
   const surname = document.querySelector('#schedule-surname');
   const infos = [];
@@ -58,26 +53,21 @@ async function setDataOnFields(lis) {
   surname.value = infos[1];
 }
 
-export default async function handleScheduleContact(element) {
-  try {
+export default function handleScheduleContact(element) {
     const modal = document.querySelectorAll('DIALOG')[1];
-    console.log(modal);
     modal.showModal();
-    await configureUIModal(modal);
+    configureUIModal(modal);
     const ul = element.parentNode.parentNode;
     const lis = ul.querySelectorAll('LI:not(.li-btns)');
-    await setDataOnFields(lis);
-    const id = element.dataset.id;  
-    const btnSend = document.querySelector('#dialog-btn-send-schedule');
-    btnSend.addEventListener('click', () => saveSchedule(id));
+    setDataOnFields(lis);
     const btnClose = document.querySelector('#dialog-btn-close-schedule');
     btnClose.onclick = () => 
     {
+    clearInputs();
     modal.close();
     modal.style.display = 'none';
-    clearInputs();
-  };
-  } catch (e) {
-    console.log(e);
-  }
+    }
+    const id = element.dataset.id;  
+    const btnSend = document.querySelector('#dialog-btn-send-schedule');
+    btnSend.addEventListener('click', () => saveSchedule(id), {once : true});
 }

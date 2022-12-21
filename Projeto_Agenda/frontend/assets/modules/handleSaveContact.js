@@ -3,7 +3,7 @@ import handleFrontEnd from "./handleFrontEnd";
 export default function handleSaveContact() {
  
   const _csrf = document.querySelector('.header-table ._csrf');
-  const name = document.querySelector('#contact-name');
+  const _name = document.querySelector('#contact-name');
   const surname = document.querySelector('#contact-surname');
   const email = document.querySelector('#contact-email');
   const phone = document.querySelector('#contact-phone');
@@ -16,12 +16,12 @@ export default function handleSaveContact() {
     genderOption = 'feminino';
   }
 
-  const arrayEls = [name.checkValidity(), surname.checkValidity(), email.checkValidity(), phone.checkValidity(), birthday.checkValidity(), cpf.checkValidity()];
+  const arrayEls = [_name.checkValidity(), surname.checkValidity(), email.checkValidity(), phone.checkValidity(), birthday.checkValidity(), cpf.checkValidity()];
   if (arrayEls.includes(false)) return;
   else {
     axios.post(`/agenda`, {
       _csrf: _csrf.dataset.csrftoken,
-      name: name.value,
+      name: _name.value,
       surname: surname.value,
       email: email.value,
       phone: phone.value,
@@ -30,7 +30,7 @@ export default function handleSaveContact() {
       cpf: cpf.value,
     })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       handleFrontEnd(`contact`, cpf.value);
     }).catch(error => console.log(error)) 
   }

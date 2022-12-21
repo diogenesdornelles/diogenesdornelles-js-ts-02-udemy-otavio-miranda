@@ -238,19 +238,49 @@
   align-items: center
 }
 
-#container-dialog {
+#container-dialog,
+#container-dialog-schedule
+{
   display: flex;
   align-items: center;
   flex-direction: column;
   align-items: stretch;
-  padding: 5%;
+  padding: 3%;
   gap: 3px;
 }
 
+#container-dialog-schedule p,
 .update-contact p {
   text-align: center;
   font-size: 1.8em;
   padding: 5px;
+}
+
+#container-dialog .btns-insert,
+#container-dialog .btns-dialog,
+#container-dialog-schedule .btns-dialog 
+{
+  margin-top: 3%;
+  display: flex;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+#container-dialog #new-gender-option {
+  display: flex;
+  gap: 5%;
+  flex-direction: row;
+  align-items: center;
+  margin: 2% 0 2% 0;
+}
+
+#container-dialog .form-update-contact,
+#container-dialog-schedule .form-schedule-contact
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
 }
 
 #container-dialog .btns-insert,
@@ -269,11 +299,7 @@
   margin: 2% 0 2% 0;
 }
 
-#container-dialog .form-update-contact {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
+#container-dialog textarea {
+  width: 70%;
 }
-
 

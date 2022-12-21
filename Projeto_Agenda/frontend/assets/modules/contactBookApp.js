@@ -7,6 +7,7 @@ import handleLoad from "./handleLoad";
 import handleScheduleContact from "./handleScheduleContact";
 import showInsertNewPerson from "./showInsertNewPerson";
 import hiddenInsertNewPerson from "./hiddenInsertNewPerson";
+import handleFullCalendar from "./handleFullCalendar";
 import clearInputs from "./clearInputs";
 
 
@@ -36,6 +37,8 @@ export default function handleContactBookApp() {
         case 'copiar': handleCopyContact(event.target);
         break;
         case 'agendar': handleScheduleContact(event.target);
+        break;
+        case 'abrir agenda': handleFullCalendar();
         break;
       } 
     }

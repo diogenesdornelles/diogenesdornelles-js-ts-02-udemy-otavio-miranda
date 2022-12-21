@@ -1,12 +1,5 @@
 import handleFrontEnd from "./handleFrontEnd";
 
-function validateInputs(array) {
-  array.forEach(el => {
-    if (!el.checkValidity()) return false;
-  })
-  return true;
-}
-
 function saveModifies (id) {
   const _name = document.querySelector('#new-name');
   const surname = document.querySelector('#new-surname');
@@ -23,8 +16,8 @@ function saveModifies (id) {
     genderOption = 'feminino';
   }
   
-  const arrayEls = [_name, surname, email, phone, birthday, cpf];
-  if (!validateInputs(arrayEls)) return;
+  const arrayEls = [_name.checkValidity(), surname.checkValidity(), email.checkValidity(), phone.checkValidity(), birthday.checkValidity(), cpf.checkValidity()];
+  if (arrayEls.includes(false)) return;
 
   axios.put(`/update/contato/${id}`, {
     _csrf:  _csrf.dataset.csrftoken,
@@ -37,7 +30,7 @@ function saveModifies (id) {
     cpf: cpf.value,
   })
   .then(response => {
-    console.log(response);
+    // console.log(response);
     handleFrontEnd(`contact`, cpf.value);
   }).catch(error => console.log(error));
 }
@@ -51,8 +44,6 @@ async function configureUIModal(modal){
   modal.style.left = "50%";
   modal.style.transform = "translate(-50%, -50%)";
 }
-
-
 
 async function setDataOnFields(lis) {
   const _name = document.querySelector('#new-name');
@@ -81,24 +72,20 @@ async function setDataOnFields(lis) {
   cpf.value = infos[6];
 }
 
-export default async function handleUpdateContact(element) {
-  try {
+export default function handleUpdateContact(element) {
     const modal = document.querySelectorAll('DIALOG')[0];
-    await modal.showModal();
-    await configureUIModal(modal);
+    modal.showModal();
+    configureUIModal(modal);
     const ul = element.parentNode.parentNode;
     const lis = ul.querySelectorAll('LI:not(.li-btns)');
-    await setDataOnFields(lis);
-    const id = element.dataset.id;  
-    const btnSend = document.querySelector('#dialog-btn-send');
-    btnSend.addEventListener('click', () => saveModifies(id));
+    setDataOnFields(lis);
     const btnClose = document.querySelector('#dialog-btn-close');
     btnClose.onclick = () => 
     {
     modal.close();
     modal.style.display = 'none';
+    const id = element.dataset.id;  
+    const btnSend = document.querySelector('#dialog-btn-send');
+    btnSend.addEventListener('click', () => saveModifies(id), {once: true});
   };
-  } catch (e) {
-    console.log(e);
-  }
 }

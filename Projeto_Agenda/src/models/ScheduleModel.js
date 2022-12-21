@@ -1,49 +1,84 @@
 const mongoose = require('mongoose');
 
 const ScheduleSchema = new mongoose.Schema({
+  id:  {
+    type: String,
+  },
   name: { 
     type: String,
     required: [true, "No need a name?"],
     trim: true,
-    validate: {
-      validator: function(value) {
-        return /^[ A-Za-zÀ-ú]+$/.test(value);
-      },
-      message: props => `${props.value} is not a valid name!`
-    },
   },
   surname: { 
     type: String,
     required: [true, "No need a surname?"],
     trim: true,
+  },
+  title: {
+    type: String,
+    required: [true, "Need a title?"],
+    trim: true,
+  },
+  start: {
+    type: String,
+    trim: true,
+    required: [true, "No have start?"],
+  },
+  end: {
+    type: String,
+    trim: true,
+    required: [true, "No have end?"],
     validate: {
       validator: function(value) {
-        return /^[ A-Za-zÀ-ú]+$/.test(value);
+        return value.length === 19 ? value : this.start;
       },
-      message: props => `${props.value} is not a valid name!`
     },
   },
-  _idContact: { 
+  type: {
     type: String,
-    required: [true, "Need a idContact."],
+    required: [true, "No need type?"],
     trim: true,
   },
-  date: {
-    type: Date,
-    trim: true,
-    required: [true, "No have date?"],
+  allDay: {
+    default: false,
   },
-  time: {
+  backgroundColor: {
     type: String,
-    required: [true, "No have time?."],
-    trim: true,
+    default: '#000',
+    validate: {
+      validator: function (){
+        switch (this.type) {
+          case 'option-1': this.backgroundColor = '#83A0A0';
+          return;
+          case 'option-2': this.backgroundColor = '#2B3D41';
+          return;
+          case 'option-3': this.backgroundColor = '#4C5F6B';
+          return;
+          case 'option-4': this.backgroundColor = '#BCA0BC';
+          return;
+          case 'option-5': this.backgroundColor = '#F9B9F2';
+          return;
+          case 'option-6': this.backgroundColor = '#378BBF';
+          return;
+          case 'option-7': this.backgroundColor = '#2C7828';
+          return;
+          case 'option-8': this.backgroundColor = '#A0C79E';
+          return;
+          case 'option-9': this.backgroundColor = '#26BDBD';
+          return;
+          case 'option-10': this.backgroundColor = '#4C3891';
+          return;
+        }
+      }
+    },
   },
-  service: {
+  extendedProps: {
+    type: Object,
+  },
+  url: {
     type: String,
-    required: [true, "No need type service?"],
-    trim: true,
   },
-  message: {
+  className: {
     type: String,
   },
 }, {timestamps: true});

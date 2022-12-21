@@ -1,20 +1,27 @@
 <dialog class="schedule-contact">
-  <p>Registrar serviço</p>
+  <h2>Registrar evento</h2>
   <section id="container-dialog-schedule">
     <form action="" method="get" class="form-schedule-contact">
-      Nome: <input type="text" id="schedule-name" placeholder="Nome" pattern="[A-Za-zÀ-ú0-9 ]*" required>
-      Sobrenome: <input type="text" id="schedule-surname" placeholder="Sobrenome" required pattern="[A-Za-zÀ-ú0-9 ]*">
-      Data: <input type="date" id="date" placeholder="Data" required>
-      Hora: <input type="time" name="time" id="time">
-      Tipo de serviço: 
-      <select id="service-options">
-        <option value="register">Registro</option>
-        <option value="alteration">Alteração</option>
-        <option value="anulation">Anulação</option>
-        <option value="maintenance">Manutenção</option>
-        <option value="survey">Vistoria</option>
+      Nome: <input type="text" id="schedule-name" readonly>
+      Sobrenome: <input type="text" id="schedule-surname" readonly>
+      <textarea name="message" id="title-event" cols="30" rows="10" placeholder="Descrição" required></textarea>
+      <% const date = new Date().toISOString().slice(0,10); %> 
+      Data: <input type="date" id="date" placeholder="Data" required min="<%=date%>">
+      Hora inicial: <input type="time" name="timestart" id="timestart" required min="09:00" max="18:00" step="1800">
+      Hora Final: <input type="time" name="timeend" id="timeend" required min="09:00" max="18:00" step="1800">
+      Tipo: 
+      <select id="event-options">
+        <option value="option-1">Option 1</option>
+        <option value="option-2">Option 2</option>
+        <option value="option-3">Option 3</option>
+        <option value="option-4">Option 4</option>
+        <option value="option-5">Option 5</option>
+        <option value="option-6">Option 6</option>
+        <option value="option-7">Option 7</option>
+        <option value="option-8">Option 8</option>
+        <option value="option-9">Option 9</option>
+        <option value="option-10">Option 10</option>
       </select>
-      <textarea name="message" id="message" cols="30" rows="10" placeholder="Descrição"></textarea>
       <div class="btns-dialog">
         <button id="dialog-btn-send-schedule" data-title="Agendar um serviço">Agendar</button>
         <button id="dialog-btn-close-schedule" data-title="Fechar painel">Fechar</button>

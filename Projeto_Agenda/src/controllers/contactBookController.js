@@ -1,6 +1,7 @@
 const { User } = require('../models/UserModel');
 const { Contact } = require('../models/ContactModel');
 const { Schedule } = require('../models/ScheduleModel');
+const { urlParser } = require('css-loader/dist/plugins');
 
 exports.loginIsRequired = (req, res, next) => {
   if (req.params.load === 'contactBookPage' && (typeof req.params._idUser !== undefined)) {
@@ -52,7 +53,7 @@ exports.create_contact = (req, res ) => {
     cpf: req.body.cpf,
   })
   .then((data) => {
-    console.log(data);
+    // console.log(data);
     req.session[req.body.cpf] = {contact: 'Contato salvo no cadastro!'};
     req.session.save();
     res.status(204).send();
@@ -166,7 +167,7 @@ exports.update_contact = (req, res) => {
     },
   )
   .then( data => {
-    console.log(data);
+    // console.log(data);
     req.session[req.body.cpf] = {contact: 'Contato atualizado no cadastro!'};
     req.session.save();
     res.status(204).send();
@@ -208,19 +209,28 @@ exports.delete_contact = (req, res) => {
 };
 
 // CREATE SCHEDULE
-exports.create_schedule = (req, res ) => {
-
+exports.create_schedule = (req, res) => {
+  
   Schedule.create({
     name: req.body.name,
     surname: req.body.surname,
-    _idContact: req.params._idContact,
-    service: req.body.service,
-    date: new Date(req.body.date),
-    time: req.body.time,
-    message: req.body.message,
+    id: req.params._idContact,
+    type: req.body.type,
+    start: req.body.start,
+    end: req.body.end,
+    title: req.body.title,
+    allDay: false,
+    extendedProps: {
+      tipo: req.body.type,
+      nome: req.body.name,
+      sobrenome: req.body.surname,
+      id: req.params._idContact,
+    },
+    url: `/api/mostrar/evento/${req.params._idContact}`,
+    className: 'contact-event-$',
   })
   .then((data) => {
-    console.log(data);
+    // console.log(data);
     req.session[req.params._idContact] = {schedule: 'Tarefa agendada no cadastro!'};
     req.session.save();
     res.status(204).send();

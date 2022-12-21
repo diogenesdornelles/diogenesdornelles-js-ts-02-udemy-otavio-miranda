@@ -8,6 +8,7 @@ import './assets/css/styleContactBook.css';
 import './assets/css/reset.css';
 import './assets/css/style.css';
 import './assets/css/styleIndex.css';
+import './assets/css/styleCalendar.css';
 import 'regenerator-runtime';
 import spaAppConfig from './assets/modules/spaApp';
 import handleContactBookApp from './assets/modules/contactBookApp';

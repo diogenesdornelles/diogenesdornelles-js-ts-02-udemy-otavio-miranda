@@ -35,7 +35,7 @@ exports.post_register_user = (req, res) => {
     password: password,
   })
   .then((data) => {
-    console.log(data);
+    // console.log(data);
     req.session[req.body.userName] = {user: 'Usuário criado no cadastro! Faça o login!'};
     req.session.save();
     return res.status(204).send();
