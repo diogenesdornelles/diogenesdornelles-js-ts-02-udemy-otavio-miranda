@@ -1,6 +1,10 @@
 import handleFrontEnd from "./handleFrontEnd";
+import validator from 'validator';
+import ValidateCpf from "./ValidateCpf";
 
 function saveModifies (id) {
+  
+  const _csrf = document.querySelector('.header-table ._csrf');
   const _name = document.querySelector('#new-name');
   const surname = document.querySelector('#new-surname');
   const email = document.querySelector('#new-email');
@@ -8,16 +12,25 @@ function saveModifies (id) {
   const birthday = document.querySelector('#new-birthday');
   const cpf = document.querySelector('#new-cpf');
   let genderOption;
-  const _csrf = document.querySelector('.header-table ._csrf');
-
   if (document.querySelector('#new-gender-male').checked) {
     genderOption = 'masculino';
   } else if (document.querySelector('#new-gender-female').checked) {
     genderOption = 'feminino';
   }
-  
   const arrayEls = [_name.checkValidity(), surname.checkValidity(), email.checkValidity(), phone.checkValidity(), birthday.checkValidity(), cpf.checkValidity()];
   if (arrayEls.includes(false)) return;
+
+  const validatorCpf = new ValidateCpf(cpf.value);
+  if (!validatorCpf.validate()) {
+    alert('CPF é inválido!');
+    return;
+  };
+
+  const checkData = _name.value && surname.value && email.value && phone.value && birthday.value;
+  if (!checkData || phone.value !== 11 || !validator.isEmail(email.value)) {
+    alert('Informar dados corretamente!');
+    return;
+  }
 
   axios.put(`/update/contato/${id}`, {
     _csrf:  _csrf.dataset.csrftoken,
@@ -28,14 +41,14 @@ function saveModifies (id) {
     birthday: `${birthday.value}T00:00`,
     gender: genderOption,
     cpf: cpf.value,
-  })
-  .then(response => {
+    })
+  .then(() => {
     // console.log(response);
     handleFrontEnd(`contact`, cpf.value);
   }).catch(error => console.log(error));
 }
 
-async function configureUIModal(modal){
+function configureUIModal(modal){
   modal.style.display = "flex";
   modal.style.flexDirection = "column";
   modal.style.width = '40vw';
@@ -45,7 +58,7 @@ async function configureUIModal(modal){
   modal.style.transform = "translate(-50%, -50%)";
 }
 
-async function setDataOnFields(lis) {
+function setDataOnFields(lis) {
   const _name = document.querySelector('#new-name');
   const surname = document.querySelector('#new-surname');
   const email = document.querySelector('#new-email');
@@ -73,19 +86,19 @@ async function setDataOnFields(lis) {
 }
 
 export default function handleUpdateContact(element) {
-    const modal = document.querySelectorAll('DIALOG')[0];
-    modal.showModal();
-    configureUIModal(modal);
-    const ul = element.parentNode.parentNode;
-    const lis = ul.querySelectorAll('LI:not(.li-btns)');
-    setDataOnFields(lis);
-    const btnClose = document.querySelector('#dialog-btn-close');
-    btnClose.onclick = () => 
-    {
+  
+  const modal = document.querySelectorAll('DIALOG')[0];
+  modal.showModal();
+  configureUIModal(modal);
+  const ul = element.parentNode.parentNode;
+  const id = element.dataset.id;  
+  const lis = ul.querySelectorAll('LI:not(.li-btns)');
+  setDataOnFields(lis);
+  const btnClose = document.querySelector('#dialog-btn-close');
+  const btnSend = document.querySelector('#dialog-btn-send');
+  btnClose.onclick = () => {
     modal.close();
     modal.style.display = 'none';
-    const id = element.dataset.id;  
-    const btnSend = document.querySelector('#dialog-btn-send');
-    btnSend.addEventListener('click', () => saveModifies(id), {once: true});
   };
+  btnSend.addEventListener('click', () => saveModifies(id));
 }

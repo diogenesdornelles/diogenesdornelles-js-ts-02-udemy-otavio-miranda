@@ -1,15 +1,17 @@
 import handleSaveContact from "./handleSaveContact";
 import handleUpdateContact from "./handleUpdateContact";
-import handleSearch from "./handleSearch";
+import handleSearchContact from "./handleSearchContact";
 import handleDeleteContact from "./handleDeleteContact";
 import handleCopyContact from "./handleCopyContact";
-import handleLoad from "./handleLoad";
-import handleScheduleContact from "./handleScheduleContact";
+import handleLoadTableContacts from "./handleLoadTableContacts";
+import handleNewEventContact from "./handleNewEventContact";
 import showInsertNewPerson from "./showInsertNewPerson";
 import hiddenInsertNewPerson from "./hiddenInsertNewPerson";
 import handleFullCalendar from "./handleFullCalendar";
 import clearInputs from "./clearInputs";
-
+import handleDeleteEvent from "./handleDeleteEvent";
+import handleUpdateEvent from "./handleUpdateEvent";
+import enableFormAttEvent from "./enableFormAttEvent";
 
 export default function handleContactBookApp() {
 
@@ -18,13 +20,13 @@ export default function handleContactBookApp() {
   function handleOperations(event){
     if (event.target.tagName.toLowerCase() === 'button' || event.target.tagName.toLowerCase() === 'a'){
       switch (event.target.innerText.toLowerCase()) {
-        case 'buscar': handleSearch();
+        case 'buscar': handleSearchContact();
         break;
         case 'inserir contato': showInsertNewPerson();
         break;
         case 'limpar': clearInputs();
         break;
-        case 'carregar lista': handleLoad();
+        case 'carregar lista': handleLoadTableContacts();
         break;
         case 'fechar': hiddenInsertNewPerson();
         break;
@@ -36,9 +38,19 @@ export default function handleContactBookApp() {
         break;
         case 'copiar': handleCopyContact(event.target);
         break;
-        case 'agendar': handleScheduleContact(event.target);
-        break;
         case 'abrir agenda': handleFullCalendar();
+        break;
+        case 'agendar': handleNewEventContact(event.target);
+        break;
+        case 'apagar': handleDeleteEvent();
+        break;
+        case 'editar': enableFormAttEvent(event.target);
+        break;
+        case 'salvar': handleUpdateEvent();
+        break;
+        case 'logar': handleLoginUser();
+        break;
+        case 'registrar': handleRegisterNewUser();
         break;
       } 
     }

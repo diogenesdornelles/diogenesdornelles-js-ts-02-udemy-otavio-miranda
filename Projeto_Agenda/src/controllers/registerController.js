@@ -14,13 +14,13 @@ exports.get_register_page = (req, res) => {
 }
 
 exports.post_register_user = (req, res) => {  
-  
   if (req.body.password !== req.body.repPassword){
     req.session[req.body.userName] = {password: 'Senhas não conferem!'};
     req.session.save();
-    return res.status(204).send();
+    res.status(204).send();
+    return;
   } 
-  
+
   const salt = bcrypt.genSaltSync();
   const password = bcrypt.hashSync(req.body.password, salt);
 
@@ -35,30 +35,35 @@ exports.post_register_user = (req, res) => {
     password: password,
   })
   .then((data) => {
-    // console.log(data);
+    console.log(data);
     req.session[req.body.userName] = {user: 'Usuário criado no cadastro! Faça o login!'};
     req.session.save();
-    return res.status(204).send();
+    res.status(204).send();
+    return;
   })
   .catch(err => {
     if (err.code === 11000) {
       if ('cpf' in err.keyPattern){
         req.session[req.body.userName] = {cpf: 'CPF já consta no cadastro!'};
         req.session.save();
-        return res.status(204).send();
+        res.status(204).send();
+        return;
       } 
       if ('userName' in err.keyPattern){
         req.session[req.body.userName] = {user: 'Usuário já consta no cadastro!'};
         req.session.save();
-        return res.status(204).send();
+        res.status(204).send();
+        return;
       } 
     } 
     if (err.name === 'ValidationError'){
       if ('cpf' in err.errors) {
         req.session[req.body.userName] = {cpf: 'CPF inválido!'};
         req.session.save();
-        return res.status(204).send();
+        res.status(204).send();
+        return;
       } 
     } 
+    console.log(err)
   });
 }

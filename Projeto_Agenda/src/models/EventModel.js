@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ScheduleSchema = new mongoose.Schema({
+const EventSchema = new mongoose.Schema({
   id:  {
     type: String,
   },
@@ -44,9 +44,7 @@ const ScheduleSchema = new mongoose.Schema({
   },
   backgroundColor: {
     type: String,
-    default: '#000',
-    validate: {
-      validator: function (){
+    validade: { function (){
         switch (this.type) {
           case 'option-1': this.backgroundColor = '#83A0A0';
           return;
@@ -83,8 +81,8 @@ const ScheduleSchema = new mongoose.Schema({
   },
 }, {timestamps: true});
 
-const Schedule = mongoose.model('Schedule', ScheduleSchema);
+const Event = mongoose.model('Event', EventSchema);
 
 module.exports = {
-  Schedule
+  Event
 }

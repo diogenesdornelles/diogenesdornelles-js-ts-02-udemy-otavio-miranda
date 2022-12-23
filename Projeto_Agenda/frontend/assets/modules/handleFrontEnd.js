@@ -2,11 +2,12 @@ import hiddenInsertNewPerson from "./hiddenInsertNewPerson";
 import clearInputs from "./clearInputs";
 import loadTableContacts from "./loadTableContacts";
 
-export default async function handleFrontEnd(url, param) {
-  
+export default function handleFrontEnd(url, param) {
+  if (param === '') return;
   setTimeout(() => {
     axios.get(`/api/advice/${url}/${param}`)
       .then(response => {
+        console.log(response.data)
         let text = '';
         for (const key in response.data){
           if (response.data[key]) {
@@ -22,7 +23,7 @@ export default async function handleFrontEnd(url, param) {
         })
         const urlLoadContacts = `/agenda/contatos`;
         
-        if (text.includes('salvo')){
+        if (text.includes('Contato salvo')){
           alert(text);
           clearInputs();
           loadTableContacts(urlLoadContacts);
@@ -30,7 +31,7 @@ export default async function handleFrontEnd(url, param) {
           return;
         }
 
-        if (text.includes('atualizado')){
+        if (text.includes('Contato atualizado')){
           alert(text);
           clearInputs();
           loadTableContacts(urlLoadContacts);
@@ -38,21 +39,27 @@ export default async function handleFrontEnd(url, param) {
           return;
         }
 
-        if (text.includes('agendada')){
+        if (text.includes('Evento agendado')){
           alert(text);
           clearInputs();
           loadTableContacts(urlLoadContacts);
           hiddenInsertNewPerson();
           return;
         }
+        
+        if (text.includes('Usuário autenticado')){
+          const loginHeader = document.querySelector('image-login');
+          loginHeader.style.display = 'none';
+          return;
+        }
 
-        if (text.includes('autenticado')){
+        if (text.includes('Usuário criado')){
           alert(text);
           clearInputs();
           return;
         }
 
-        if (text.includes('criado')){
+        if (text.includes('Evento atualizado')){
           alert(text);
           clearInputs();
           return;

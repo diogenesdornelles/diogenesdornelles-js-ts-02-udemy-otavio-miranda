@@ -4,7 +4,7 @@ import imgContactBook from '../images/agenda.png';
 import imgRegister from '../images/register.png';
 import imgLogout from '../images/logOut.png';
 
-let images = {
+const images = {
   home: imgHome,
   login: imgLogin,
   contactbook: imgContactBook,
@@ -22,7 +22,7 @@ export default async function loadImages() {
   for (const key in images){
     const el = app(images[key]);
     const li = document.querySelector(`.header .image-${key}`);
-    if (typeof li !== undefined) {
+    if (li) {
       li.appendChild(el);
     }
   }

@@ -1,7 +1,7 @@
-export default async function initialEvents() {
+export default async function getEventsAgenda() {
   try {
     let response;
-    response = await axios.get('/api/events/agenda');
+    response = await axios.get('/eventos/agenda');
     if (response.data.length === 0) {
       response = [{}]
       return response;

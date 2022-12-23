@@ -1,4 +1,6 @@
 import handleFrontEnd from "./handleFrontEnd";
+import validator from 'validator';
+import ValidateCpf from "./ValidateCpf";
 
 export default function handleSaveContact() {
  
@@ -18,20 +20,30 @@ export default function handleSaveContact() {
 
   const arrayEls = [_name.checkValidity(), surname.checkValidity(), email.checkValidity(), phone.checkValidity(), birthday.checkValidity(), cpf.checkValidity()];
   if (arrayEls.includes(false)) return;
-  else {
-    axios.post(`/agenda`, {
-      _csrf: _csrf.dataset.csrftoken,
-      name: _name.value,
-      surname: surname.value,
-      email: email.value,
-      phone: phone.value,
-      birthday: `${birthday.value}T00:00`,
-      gender: genderOption,
-      cpf: cpf.value,
-    })
-    .then(response => {
-      // console.log(response);
-      handleFrontEnd(`contact`, cpf.value);
-    }).catch(error => console.log(error)) 
+
+  const validatorCpf = new ValidateCpf(cpf.value);
+  if (!validatorCpf.validate()) {
+    alert('CPF é inválido!');
+    return;
+  };
+  const checkData = _name.value && surname.value && email.value && phone.value && birthday.value;
+  if (!checkData || phone.value !== 11 || !validator.isEmail(email.value)) {
+    alert('Dados incorretos!');
+    return;
   }
+
+  axios.post(`/agenda`, {
+    _csrf: _csrf.dataset.csrftoken,
+    name: _name.value,
+    surname: surname.value,
+    email: email.value,
+    phone: phone.value,
+    birthday: `${birthday.value}T00:00`,
+    gender: genderOption,
+    cpf: cpf.value,
+  })
+  .then(response => {
+    // console.log(response);
+    handleFrontEnd(`contact`, cpf.value);
+  }).catch(error => console.log(error)) 
 }

@@ -1,7 +1,7 @@
-import loadTableContacts from "./contactBookApp";
+import loadTableContacts from "./loadTableContacts";
 const urlLoadContacts = `/agenda/contatos`;
 
-export default function handleDeleteContact(element) {
+export default function handleDeleteEvent(element) {
   const _csrf = document.querySelector('.header-table ._csrf');
   const id = element.dataset.id;
   let reqURLId = `/delete/contato/${id}`;

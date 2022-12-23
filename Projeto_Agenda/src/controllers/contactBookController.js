@@ -1,7 +1,7 @@
 const { User } = require('../models/UserModel');
 const { Contact } = require('../models/ContactModel');
-const { Schedule } = require('../models/ScheduleModel');
-const { urlParser } = require('css-loader/dist/plugins');
+const { Event } = require('../models/EventModel');
+const { ValidateCpf } = require('../models/validateCpf');
 
 exports.loginIsRequired = (req, res, next) => {
   if (req.params.load === 'contactBookPage' && (typeof req.params._idUser !== undefined)) {
@@ -40,15 +40,31 @@ exports.get_contactBook_page = (req, res) => {
     });
 } 
 
-// CREATE
+// CREATE CONTACT
 exports.create_contact = (req, res ) => {
+
+  const validator = new ValidateCpf(req.body.cpf);
+  if (!validator.validate()) {
+    req.session[req.body.cpf] = {cpf: 'CPF inválido!'};
+    req.session.save();
+    res.status(204).send();
+    return;
+  };
+
+  const checkData = req.body.name && req.body.surname && req.body.email && req.body.phone && req.body.birthday && req.body.gender;
+  if (!checkData || req.body.phone.length !== 11) {
+    req.session[req.body.cpf] = {data: 'Enviar dados completos!'};
+    req.session.save();
+    res.status(204).send();
+    return;
+  }
 
   Contact.create({
     name: req.body.name,
     surname: req.body.surname,
     email: req.body.email,
     phone: req.body.phone,
-    date: new Date(`${req.body.date}`),
+    birthday: new Date(req.body.birthday),
     gender: req.body.gender,
     cpf: req.body.cpf,
   })
@@ -80,7 +96,7 @@ exports.create_contact = (req, res ) => {
   });
 }
 
-// READ
+// READ CONTACT
 exports.get_all_contacts = (req, res) => {
   Contact.find().sort({ name: 1 })
   .then( data => {
@@ -99,6 +115,7 @@ exports.get_all_contacts = (req, res) => {
     });
 }
 
+// READ CONTACT
 exports.get_contact_by_cpf = (req, res) => {
   Contact.findOne({ 
     cpf: req.params.cpfNumber,
@@ -119,6 +136,7 @@ exports.get_contact_by_cpf = (req, res) => {
     });
 }
 
+// READ CONTACT
 exports.get_contact_by_name = (req, res) => {
   Contact.findOne({ 
     name: req.params.name,
@@ -145,13 +163,30 @@ exports.get_contact_by_name = (req, res) => {
     });
 }
 
-// UPDATE
+// UPDATE CONTACT
 exports.update_contact = (req, res) => {
+  
+  const validator = new ValidateCpf(req.body.cpf);
+  if (!validator.validate()) {
+    req.session[req.body.cpf] = {cpf: 'CPF inválido!'};
+    req.session.save();
+    res.status(204).send();
+    return;
+  };
+
+  const checkData = req.body.name && req.body.surname && req.body.email && req.body.phone && req.body.birthday && req.body.gender;
+  if (!checkData || req.body.phone.length !== 11) {
+    req.session[req.body.cpf] = {data: 'Enviar dados completos!'};
+    req.session.save();
+    res.status(204).send();
+    return;
+  }
+
   Contact.findOneAndUpdate(
     {
       _id: req.params._idContact
     },
-    { $set: {
+    { 
       name: req.body.name,
       surname: req.body.surname,
       email: req.body.email,
@@ -159,15 +194,13 @@ exports.update_contact = (req, res) => {
       birthday: new Date(req.body.birthday),
       gender: req.body.gender,
       cpf: req.body.cpf,
-      }
     },
     { 
-      runValidators: true, 
       new: true,
     },
   )
   .then( data => {
-    // console.log(data);
+    console.log(data);
     req.session[req.body.cpf] = {contact: 'Contato atualizado no cadastro!'};
     req.session.save();
     res.status(204).send();
@@ -181,23 +214,16 @@ exports.update_contact = (req, res) => {
         res.status(204).send();
         return;
       } 
-    } 
-    if (err.code === 11000) {
-      if ('cpf' in err.keyPattern){
-        req.session[req.body.cpf] = {cpf: 'CPF já consta no cadastro!'};
-        req.session.save();
-        res.status(204).send();
-        return;
-      } 
-    } 
+    }
     else {
       console.log(err);
       res.render('404');
     }
+    console.log(err);
   });
 }
 
-// DELETE
+// DELETE CONTACT
 exports.delete_contact = (req, res) => {
   Contact.findByIdAndDelete(req.params._idContact)
   .then( () => {
@@ -208,10 +234,10 @@ exports.delete_contact = (req, res) => {
     });
 };
 
-// CREATE SCHEDULE
-exports.create_schedule = (req, res) => {
+// CREATE EVENT
+exports.create_event = (req, res) => {
   
-  Schedule.create({
+  Event.create({
     name: req.body.name,
     surname: req.body.surname,
     id: req.params._idContact,
@@ -226,12 +252,12 @@ exports.create_schedule = (req, res) => {
       sobrenome: req.body.surname,
       id: req.params._idContact,
     },
-    url: `/api/mostrar/evento/${req.params._idContact}`,
-    className: 'contact-event-$',
+    url: `/mostrar/evento/${req.params._idContact}`,
+    className: 'contact-event-class',
   })
   .then((data) => {
     // console.log(data);
-    req.session[req.params._idContact] = {schedule: 'Tarefa agendada no cadastro!'};
+    req.session[req.params._idContact] = {event: 'Evento agendado!'};
     req.session.save();
     res.status(204).send();
     return;
@@ -240,3 +266,77 @@ exports.create_schedule = (req, res) => {
     console.log(err);
   });
 }
+
+// READ EVENT
+exports.get_agenda = (req, res) => {
+  Event.find().sort({ start: 1 })
+  .then( data => {
+    // console.log(data);
+    res.status(200).json(data); 
+    }).catch( err => {
+      console.log(err);
+      res.render('404');
+    });
+}
+
+// READ EVENT
+exports.get_agenda_contact = (req, res) => {
+  if (req.params.value === 'true'){
+    Event.findOne({
+      id: req.params._idContact
+    })
+    .then( response => {
+      // console.log(response);
+      res.render('event', {infos: response}); 
+      }).catch( err => {
+        console.log(err);
+        res.render('404');
+      });
+  } else {
+    res.status(204).send();
+  }
+}
+
+// UPDATE EVENT
+exports.update_event = (req, res) => {
+  Event.findOneAndUpdate(
+    {
+      id: req.params._idContact
+    },
+    { $set: {
+        type: req.body.type,
+        start: req.body.start,
+        end: req.body.end,
+        title: req.body.title,
+      }
+    },
+    { 
+      runValidators: true, 
+      new: true,
+    },
+  )
+  .then( data => {
+    // console.log(data);
+    req.session[req.body._idContact] = {event: 'Evento atualizado!'};
+    req.session.save();
+    res.status(204).send();
+    return;
+  })
+  .catch(err => {
+      console.log(err);
+    }
+  );
+}
+
+// DELETE EVENT
+exports.delete_event = (req, res) => {
+  Event.findOneAndDelete({
+    id: req.params._idContact
+  })
+  .then( () => {
+    res.status(204).send();
+    }).catch( err => {
+      console.log(err);
+      res.render('404');
+    });
+};

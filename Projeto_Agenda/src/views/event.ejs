@@ -2,24 +2,25 @@
 
 <h2>Dados do evento: </h2>
 <div class="event-info">
-  <input type="hidden" name="id" value="<%=infos.id%>">
-  <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+  <input type="hidden" name="_csrf" class="csrfToken-event" value="<%=csrfToken%>">
+  <input type="hidden" name="id" id="id-contact-event" value="<%=infos.id%>">
   <span>Nome: </span><input type="text" id="name-contact-event" readonly value="<%=infos.name%>" required> 
 </div>
 <div class="event-info">
   <span>Sobrenome: </span><input type="text" id="surname-contact-event" readonly value="<%=infos.surname%>" required> 
 </div>
 <div class="event-info">
-  <span>Título: </span><textarea type="text" id="title-contact-event" readonly value="<%=infos.title%>" required><%=infos.title%></textarea>
+  <span>Título: </span><textarea type="text" id="title-contact-event" readonly value="<%=infos.title%>" cols="30" rows="10" placeholder="Descrição" required><%=infos.title%></textarea>
 </div>
 <div class="event-info">
-  <span>Data: </span><input type="date" id="date-contact-event" readonly value="<%=`${infos.start.slice(0,10)}` %>" required> 
+  <% const date = new Date().toISOString().slice(0,10); %>
+  <span>Data: </span><input type="date" id="date-contact-event" readonly value="<%=`${infos.start.slice(0,10)}` %>" required min="<%=date%>"> 
 </div>
 <div class="event-info">
-  <span>Início: </span><input type="time" id="timestart-contact-event" readonly value="<%=`${infos.start.slice(11,)}` %>" required> 
+  <span>Início: </span><input type="time" id="timestart-contact-event" readonly value="<%=`${infos.start.slice(11,)}` %>" required min="09:00" max="18:00" step="1800"> 
 </div>
 <div class="event-info">
-  <span>Fim: </span><input type="time" id="timeend-contact-event" readonly value="<%=`${infos.end.slice(11,)}`%>" required> 
+  <span>Fim: </span><input type="time" id="timeend-contact-event" readonly value="<%=`${infos.end.slice(11,)}`%>" required min="09:00" max="18:00" step="1800"> 
 </div>
 <div class="event-info">
   <span>Tipo: </span>

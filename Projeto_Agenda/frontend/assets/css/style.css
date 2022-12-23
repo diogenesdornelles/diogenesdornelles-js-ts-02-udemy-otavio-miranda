@@ -1,3 +1,7 @@
+body {
+  scroll-behavior: smooth;
+}
+
 [data-title]:hover:after {
   opacity: 1;
   transition: all 0.1s ease 0.5s;
@@ -42,13 +46,12 @@ input[type="email"]
 {
   width: 70%;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #00000059;
   height: 4vh;
   text-indent: 5px;
   color: #0a3363;
-  margin-top: 15px;
   margin-bottom: 10px;
-  border-radius: 7px;
+  border-radius: 3px;
   font-size: 2vh;
   font-weight: 700;
 }
@@ -57,20 +60,16 @@ textarea {
   height: 8vh;
 }
 
-input[type="time"]:hover,
 input[type="tel"]:hover,
 input[type="search"]:hover,
-input[type="date"]:hover,
 input[type="password"]:hover,
 input[type="text"]:hover,
 input[type="email"]:hover {
   border: 1px solid #e4e4e4;
 }
 
-input[type="time"]:focus,
 input[type="tel"]:focus,
 input[type="search"]:focus,
-input[type="date"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus,
 input[type="email"]:focus {
@@ -115,11 +114,14 @@ button:hover
 .gender-option {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-items: center;
-  gap: 8%;
-  width: 45%;
+  gap: 3%;
+  width: 100%;
   margin-bottom: 3%;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+  padding: 4% 0 3% 0;
 }
 
 .advice-note {
@@ -153,4 +155,33 @@ button:hover
             transform: translateX(0);
     opacity: 1;
   }
+}
+
+input[type="time"],
+input[type="date"]
+{
+  background-color: #000000;
+  padding: 4px;
+  color: #ffffff;
+  border: none;
+  outline: none;
+}
+
+input[type="time"]:hover,
+input[type="date"]:hover
+{
+  background-color: #000000;
+}
+
+input[type="time"]:focus,
+input[type="date"]:focus
+{
+  background-color: #000000; 
+}
+
+::-webkit-calendar-picker-indicator{
+  background-color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
 }

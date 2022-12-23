@@ -32,9 +32,17 @@ route.get('/agenda/:load?/:_idUser?', contactBookController.loginIsRequired, con
 
 route.post('/agenda', contactBookController.create_contact);
 
-route.post('/salvar/evento/:_idContact', contactBookController.create_schedule);
+route.post('/salvar/evento/:_idContact', contactBookController.create_event);
+
+route.put('/atualizar/evento/:_idContact', contactBookController.update_event);
+
+route.delete('/delete/event/:_idContact', contactBookController.delete_event);
 
 route.put('/update/contato/:_idContact', contactBookController.update_contact);
+
+route.get('/eventos/agenda',contactBookController.get_agenda);
+
+route.get('/mostrar/evento/:_idContact/:value?', contactBookController.get_agenda_contact);
 
 route.get('/api/advice/register/:userName', apiController.get_advice_register);
 
@@ -42,11 +50,9 @@ route.get('/api/advice/login/:userName', apiController.get_advice_login);
 
 route.get('/api/advice/contact/:cpf', apiController.get_advice_contact);
 
-route.get('/api/advice/event/:_idContact', apiController.get_advice_schedule);
+route.get('/api/advice/event/:_idContact', apiController.get_advice_event);
 
-route.get('/api/events/agenda', apiController.get_agenda);
-
-route.get('/api/mostrar/evento/:_idContact/:value?', apiController.get_agenda_contact);
+route.get('/api/advice/attevent/:_idContact', apiController.get_advice_attevent);
 
 route.get('/logout', indexController.get_index_page);
 

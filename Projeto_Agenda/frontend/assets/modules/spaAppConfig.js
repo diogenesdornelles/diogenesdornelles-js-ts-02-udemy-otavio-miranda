@@ -1,4 +1,4 @@
-import initForm from './initForm';
+import initFormPreventPost from './initFormPreventPost';
 
 export default async function spaAppConfig() {
   try {
@@ -86,8 +86,8 @@ export default async function spaAppConfig() {
       axios.get(route.template + route.param + route._idUser)
       .then(response => {
         document.querySelector('.index .container').innerHTML = response.data;
-        if (route.template.includes('agenda')) {
-          initForm();
+        if (route.template.includes('agenda') || route.template.includes('registrar') || route.template.includes('entrar')) {
+          initFormPreventPost();
         }
       })
       .catch(error => console.log(error));

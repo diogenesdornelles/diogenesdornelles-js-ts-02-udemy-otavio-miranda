@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     validate: {
       validator: function(value) {
-        return /^[ A-Za-z]+$/.test(value);
+        return /^[ A-Za-zÀ-ú]+$/.test(value);
       },
       message: props => `${props.value} is not a valid name!`
     },
@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     validate: {
       validator: function(value) {
-        return /^[ A-Za-z]+$/.test(value);
+        return /^[ A-Za-zÀ-ú]+$/.test(value);
       },
       message: props => `${props.value} is not a valid name!`
     },
